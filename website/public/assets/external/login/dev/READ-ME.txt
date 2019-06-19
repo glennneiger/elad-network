@@ -1,0 +1,24 @@
+1. This system works with PHP 5.5+
+
+2. In your PhpMyAdmin, create a database "php_login_system"
+
+3. Import the SQL file in the "dev" folder
+
+4. Rewrite module must be enable in your apache server
+
+5. Change rewrite base directory in line 7 of .htaccess file
+
+6. Configure $home_url in /config/core.php
+
+7. Configure database in /config/database.php
+
+8. User Login
+Admin Section Login
+Username: mike@example.com
+Password: ninja12qw!@QW
+
+Customer Account Login
+Username: darwin@example.com
+Password: darwin12qw!@QW
+
+Note: If you use PhpMailer, use a dummy Gmail account for your testing and the "Turn on" the less secure apps settings here https://www.google.com/settings/security/lesssecureapps

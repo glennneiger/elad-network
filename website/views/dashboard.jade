@@ -1,0 +1,73 @@
+extends layout
+
+block content
+ .content
+    .header.bg-gradient-primary.pb-8.pt-5.pt-md-8
+      .container-fluid
+        .header-body
+          // Card stats
+          .row
+            .col-xl-3.col-lg-6
+              .card.card-stats.mb-4.mb-xl-0
+                .card-body
+                  .row
+                    .col
+                      h5.card-title.text-uppercase.text-muted.mb-0 Total value
+                      span.h2.font-weight-bold.mb-0#totalValue
+                    .col-auto
+                      .icon.icon-shape.bg-danger.text-white.rounded-circle.shadow
+                        i.fas.fa-chart-bar
+            .col-xl-3.col-lg-6
+              .card.card-stats.mb-4.mb-xl-0
+                .card-body
+                  .row
+                    .col
+                      h5.card-title.text-uppercase.text-muted.mb-0 Nr. of tokens
+                      span.h2.font-weight-bold.mb-0#nTokens
+                    .col-auto
+                      .icon.icon-shape.bg-warning.text-white.rounded-circle.shadow
+                        i.fas.fa-chart-pie
+            .col-xl-3.col-lg-6
+              .card.card-stats.mb-4.mb-xl-0
+                .card-body
+                  .row
+                    .col
+                      h5.card-title.text-uppercase.text-muted.mb-0 Nr. of properties
+                      span.h2.font-weight-bold.mb-0#nProperties
+                    .col-auto
+                      .icon.icon-shape.bg-yellow.text-white.rounded-circle.shadow
+                        i.fas.fa-users
+            .col-xl-3.col-lg-6
+              .card.card-stats.mb-4.mb-xl-0
+                .card-body
+                  .row
+                    .col
+                      h5.card-title.text-uppercase.text-muted.mb-0 ROI
+                      span.h2.font-weight-bold.mb-0#roi
+                    .col-auto
+                      .icon.icon-shape.bg-info.text-white.rounded-circle.shadow
+                        i.fas.fa-percent
+    // Page content
+    br
+    // Projects table
+    h2(style='margin-left: 42% !important;')  My Investments
+    br
+    table.table.align-items-center.table-flush#portfolioTable(style='max-width: 90% !important; margin-left: 5% !important;')
+      thead.thead-light
+        tr
+          th(scope='col') Property name
+          th(scope='col') Number of tokens
+          th(scope='col') Market price
+          th(scope='col') Total value
+      tbody
+    // Argon Scripts
+    // Core
+    script(src='../assets/vendor/jquery/dist/jquery.min.js')
+    script(src='../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')
+    // Optional JS
+    script(src='../assets/vendor/chart.js/dist/Chart.min.js')
+    script(src='../assets/vendor/chart.js/dist/Chart.extension.js')
+    // Argon JS
+    script(src='../assets/js/argon.js?v=1.0.0')
+    script(src='../javascripts/portfolio.js')
+    script(src='../javascripts/web3.js')
