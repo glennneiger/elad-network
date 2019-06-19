@@ -1,9 +1,9 @@
 var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var session = require('express-session');
 var passport = require('passport');
@@ -14,14 +14,25 @@ var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
-var mongoose = require('mongoose');
-var db = mongoose.connection;
+const mongoose = require('mongoose');
+// var db = mongoose.connection;
 
 
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 
 var app = express();
+
+mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
+  useNewUrlParser: true
+}, function(error) {
+  if(error) {
+    console.log('There was an error connecting to the database')
+    console.log(error)
+  } else {
+    console.log('We are connected to the database!')
+  }
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -96,3 +107,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
