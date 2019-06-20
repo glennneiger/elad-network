@@ -31,15 +31,29 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
     console.log(error)
   } else {
     console.log('We are connected to the database!')
+
   }
 })
+
+// first we create the schema
+var propertySchema = new mongoose.Schema({
+  propertyName: String,
+  tokenSymbol: String,
+  totalSupply: String,
+  ethPrice: String,
+  eladPrice: String,
+  fallbackAddress: String,
+  description: String,
+  image: String
+})
+
+// then we add the model
+var Property = mongoose.model('Property', propertySchema)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('view engine', 'ejs');
-
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -94,6 +108,14 @@ app.use('/dashboard', dashboard);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// app.post('/create-property', (req, res) => {
+//   var dataGotFromForm = req.body
+  
+//   console.log(dataGotFromForm)
+
+//   res.render('/dashboard.jade')
+// })
 
 // error handler
 app.use(function(err, req, res, next) {

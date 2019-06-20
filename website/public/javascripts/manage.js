@@ -817,7 +817,7 @@ function buildTable() {
         var cell1 = row.insertCell(1);
         var cell2 = row.insertCell(2);
         var cell3 = row.insertCell(3);
-        cell0.innerHTML = Properties.get(i)[0];
+        cell0.innerHTML = "<b><font size=\"4\"><i class=\"ni ni-building\"></i>&nbsp;&nbsp;&nbsp;" + Properties.get(i)[0] + "</b></font>";
         cell1.innerHTML = Properties.get(i)[1];
         var boughtTokens = Properties.get(i)[1] - Properties.get(i)[3];;
         cell2.innerHTML = boughtTokens;

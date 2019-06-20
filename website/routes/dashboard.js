@@ -13,6 +13,10 @@ var User = require('../models/user');
 //   res.send('respond with a resource');
 // });
 
+router.get('/', function(req, res, next) {
+  res.render('dashboard.jade', {title:'Dashboard'});
+});
+
 router.get('/register', function(req, res, next) {
   res.render('register', {title:'Register'});
 });
@@ -39,7 +43,23 @@ router.post('/login',
     req.flash('success', 'You are now logged in');
   res.redirect('/');
   }
-  );
+);
+
+router.post('/create-property', function(req, res, next) {
+  var dataGotFromForm = req.body
+  
+  console.log(dataGotFromForm)
+
+  res.render('manage.jade', {title:'Manage Properties'});
+});
+
+// router.post('/create-property', (req, res) => {
+//   var dataGotFromForm = req.body
+  
+//   console.log(dataGotFromForm)
+
+//   res.render('/dashboard.jade')
+// })
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -70,8 +90,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
       });
     });
 }));
-
-
 
 router.post('/register', upload.single('profileImage'), function(req, res, next) {
   console.log("body parsing", req.body);

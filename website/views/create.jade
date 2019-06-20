@@ -42,6 +42,19 @@ block content
                     input.form-control#img(placeholder='Image', type='file')
                 .text-center
                   button.btn.btn-primary.my-4(type='button' onClick="createNew()") CREATE
+
+            .container
+              h1
+                font(color='white') Create a tokenized property
+              form(action='/create-property', method='POST')
+                .form-group
+                  label(for='exampleInputEmail1') Property Name
+                  input.form-control(type='text', placeholder='House 123 in South London', name='propertyName')
+                .form-group
+                  label(for='exampleInputPassword1') Token Name
+                  input.form-control(type='text', placeholder='HSL', name='tokenName')
+                button.btn.btn-primary(type='submit') CREATE
+
             script(src='../assets/vendor/jquery/dist/jquery.min.js')
             script(src='../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')
             // Optional JS

@@ -7,13 +7,16 @@ html(lang='en')
     link(href='../assets/vendor/nucleo/css/nucleo.css', rel='stylesheet')
     link(href='../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css', rel='stylesheet')
     link(type='text/css', href='../assets/css/argon.css?v=1.0.0', rel='stylesheet')
+    //- for icons testing
+    link(href='/assets/vendor/nucleo/css/nucleo.css', rel='stylesheet')
+
  body
   nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light.bg-white
    .container-fluid
     button.navbar-toggler(type='button', data-toggle='collapse', data-target='#sidenav-collapse-main', aria-controls='sidenav-main', aria-expanded='false', aria-label='Toggle navigation')
       span.navbar-toggler-icon
     // Brand
-    a.navbar-brand.pt-0(href='./index.html')
+    a.navbar-brand.pt-0(href='/dashboard')
       img.navbar-brand-img(src='../assets/img/brand/blue.png', alt='...', style='max-width: 150px !important;')
     // Collapse
     #sidenav-collapse-main.collapse.navbar-collapse
@@ -21,7 +24,7 @@ html(lang='en')
       .navbar-collapse-header.d-md-none
         .row
           .col-6.collapse-brand
-            a(href='/dashboard/dashboard')
+            a(href='/dashboard/')
               img(src='../assets/img/brand/blue.png')
           .col-6.collapse-close
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#sidenav-collapse-main', aria-controls='sidenav-main', aria-expanded='false', aria-label='Toggle sidenav')
@@ -30,7 +33,7 @@ html(lang='en')
       // Navigation
       ul.navbar-nav
         li.nav-item
-          a.nav-link(href='/dashboard/dashboard')
+          a.nav-link(href='/dashboard/')
             i.ni.ni-tv-2.text-primary
             |  Dashboard
         li.nav-item
