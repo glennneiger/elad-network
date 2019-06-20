@@ -9,14 +9,13 @@ var session = require('express-session');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var LocalStrategy = require('passport-local').Strategy;
-var multer = require('multer');
-var upload = multer({dest: './uploads'});
+// var multer = require('multer');
+// var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
 const mongoose = require('mongoose');
 // var db = mongoose.connection;
-
 
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
@@ -34,21 +33,6 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
 
   }
 })
-
-// first we create the schema
-var propertySchema = new mongoose.Schema({
-  propertyName: String,
-  tokenSymbol: String,
-  totalSupply: String,
-  ethPrice: String,
-  eladPrice: String,
-  fallbackAddress: String,
-  description: String,
-  image: String
-})
-
-// then we add the model
-var Property = mongoose.model('Property', propertySchema)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -108,14 +92,6 @@ app.use('/dashboard', dashboard);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// app.post('/create-property', (req, res) => {
-//   var dataGotFromForm = req.body
-  
-//   console.log(dataGotFromForm)
-
-//   res.render('/dashboard.jade')
-// })
 
 // error handler
 app.use(function(err, req, res, next) {
