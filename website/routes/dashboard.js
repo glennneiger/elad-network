@@ -42,7 +42,7 @@ function checkFileType(file, cb){
 }
 
 router.get('/', function(req, res, next) {
-    res.render('dashboard.jade', {title:'Dashboard'});
+    res.render('dashboard.ejs', {title:'Dashboard'});
 });
 
 router.get('/register', function(req, res, next) {
@@ -76,6 +76,14 @@ router.get('/create', function(req, res, next) {
 router.get('/manage', function(req, res, next) {
     res.render('manage.ejs', {title:'Manage Properties'});
 });
+
+router.get('/properties', function(req, res, next) {
+    res.render('properties.ejs', {title:'Blank page'});
+})
+
+router.get('/blank', function(req, res, next) {
+    res.render('blank.ejs', {title:'Blank page'});
+})
 
 router.get('/file-uploaded', function(req, res, next) {
     res.render('file-uploaded.ejs', {title:'Manage Properties'});
@@ -132,7 +140,7 @@ router.post('/create-property', (req, res) => {
     //     }
     // });
 
-    res.render('manage.jade', {title:'Manage Properties'});
+    res.render('manage.ejs', {title:'Manage Properties'});
 });
 
 passport.serializeUser(function(user, done) {
