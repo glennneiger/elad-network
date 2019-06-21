@@ -36,7 +36,6 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));

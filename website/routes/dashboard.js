@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+// var router = express.Router();
 var multer = require('multer');
 // var upload = multer({dest: './uploads'});
 var bcrypt = require('bcryptjs');
@@ -7,6 +7,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 const Property = require('../models/property')
+
+const app = express()
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
@@ -41,55 +43,45 @@ function checkFileType(file, cb){
     }
 }
 
-router.get('/', function(req, res, next) {
-    res.render('dashboard.ejs', {title:'Dashboard'});
+app.set('view engine', 'ejs')
+
+app.get('/', function(req, res, next) {
+    res.render('dashboard', {title:'Dashboard'});
 });
 
-router.get('/register', function(req, res, next) {
+app.get('/register', function(req, res, next) {
     res.render('register', {title:'Register'});
 });
 
-router.get('/login', function(req, res, next) {
+app.get('/login', function(req, res, next) {
     res.render('login', {title:'Login'});
 });
 
-// router.get('/dashboard', function(req, res, next) {
-//     res.render('dashboard.jade', {title:'Dashboard'});
-// });
-
-router.get('/dashboard', function(req, res, next) {
-    res.render('dashboard.ejs', {title:'Dashboard'});
+app.get('/dashboard', function(req, res, next) {
+    res.render('dashboard', {title:'Dashboard'});
 });
 
-// router.get('/create', function(req, res, next) {
-//     res.render('create.jade', {title:'Create Property'});
-// });
-
-router.get('/create', function(req, res, next) {
-    res.render('create.ejs', {title:'Create Property'});
+app.get('/create', function(req, res, next) {
+    res.render('create', {title:'Create Property'});
 });
 
-// router.get('/manage', function(req, res, next) {
-//     res.render('manage.jade', {title:'Manage Properties'});
-// });
-
-router.get('/manage', function(req, res, next) {
-    res.render('manage.ejs', {title:'Manage Properties'});
+app.get('/manage', function(req, res, next) {
+    res.render('manage', {title:'Manage Properties'});
 });
 
-router.get('/properties', function(req, res, next) {
-    res.render('properties.ejs', {title:'Blank page'});
+app.get('/properties', function(req, res, next) {
+    res.render('properties', {title:'Blank page'});
 })
 
-router.get('/blank', function(req, res, next) {
-    res.render('blank.ejs', {title:'Blank page'});
+app.get('/blank', function(req, res, next) {
+    res.render('blank', {title:'Blank page'});
 })
 
-router.get('/file-uploaded', function(req, res, next) {
-    res.render('file-uploaded.ejs', {title:'Manage Properties'});
+app.get('/file-uploaded', function(req, res, next) {
+    res.render('file-uploaded', {title:'Manage Properties'});
 })
 
-router.post('/login', 
+app.post('/login', 
     passport.authenticate('local', { failureRedirect: '/dashboard/login', failureFlash: 'Invalid username or password'}),
     function(req, res) {
         req.flash('success', 'You are now logged in');
@@ -97,7 +89,7 @@ router.post('/login',
     }
 );
 
-router.post('/create-property', (req, res) => {
+app.post('/create-property', (req, res) => {
     var data = req.body
     
     Property.create({
@@ -140,7 +132,7 @@ router.post('/create-property', (req, res) => {
     //     }
     // });
 
-    res.render('manage.ejs', {title:'Manage Properties'});
+    res.render('manage', {title:'Manage Properties'});
 });
 
 passport.serializeUser(function(user, done) {
@@ -226,10 +218,10 @@ passport.use(new LocalStrategy(function(username, password, done) {
 //   }
 // });
 
-router.get('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
   req.logout();
   req.flash('success', 'You are now logged out');
   res.redirect('/dashboard/login');
 });
 
-module.exports = router;
+module.exports = app;
