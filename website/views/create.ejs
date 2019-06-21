@@ -9,54 +9,43 @@
                 <!-- Page content-->
                 <div class="container">
                   <h1 class="text-center">
-                    <font color="white">Create a tokenized property</font>
+                    <p style="font-weight:bold; color:white; font-size:25px">Create a tokenized property</p>
                   </h1>
                   <form action="/dashboard/create-property" method="POST">
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Property Name</label></font>
+                      <label style="font-weight:bold; color:white">Property Name</label>
                       <input class="form-control" type="text" placeholder="Ex: House 123 in South London" name="propertyName">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Token Symbol</label></font>
+                      <label style="font-weight:bold; color:white">Token Symbol</label>
                       <input class="form-control" type="text" placeholder="Ex: HSL" name="tokenSymbol">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Token Total Supply</label></font>
+                      <label style="font-weight:bold; color:white">Token Total Supply</label>
                       <input class="form-control" type="text" placeholder="Ex: 100,000,000" name="totalSupply">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Price of tokens in ETH</label></font>
+                      <label style="font-weight:bold; color:white">Price of tokens in ETH</label>
                       <input class="form-control" type="text" placeholder="Ex: 10" name="priceInEth">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Price of tokens in ELAD</label></font>
+                      <label style="font-weight:bold; color:white">Price of tokens in ELAD</label>
                       <input class="form-control" type="text" placeholder="Ex: 1,000" name="priceInElad">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Fallback address (optional)</label></font>
+                      <label style="font-weight:bold; color:white">Fallback address (optional)</label>
                       <input class="form-control" type="text" placeholder="" name="fallbackAddress">
                     </div>
                     <div class="form-group">
-                      <font color="white">
-                      <label for="exampleInputEmail1">Property Description</label></font>
+                      <label style="font-weight:bold; color:white">Property Description</label>
                       <input class="form-control" type="text" placeholder="Ex: Beautiful house in South of London" name="propertyDescription">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Property Image</label>
-                      <div class="file-field input-field">
-                        <div class="btn grey">
-                          <input name="propertyImage" type="file">
-                          <input class="file-path validate" type="text">
-                        </div>
-                      </div>
+                      <label style="font-weight:bold; color:white">Property Image</label>
+                      <input class="form-control" type="file" name="propertyImage">
                     </div>
-                    <button class="btn btn-primary" type="submit">CREATE</button>
+                    <br>
+                    <button class="btn btn-secondary" type="submit">CREATE</button>
                   </form>
                 </div>
               </div>
