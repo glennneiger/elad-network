@@ -117,14 +117,10 @@ const latest = web3.eth.getBlockNumber();
 
 var getEvents = true;
 
-
 // Map within map
 var TokenSpecs = new Map();
 
-
-
 // web3.eth.defaultAccount = web3.eth.accounts[0];
-
 
 var TokenContract = web3.eth.contract([
 	{
@@ -694,9 +690,7 @@ var TokenContract = web3.eth.contract([
 	}
 ]);
 
-
 var allInvestments = [];
-
 
 function getAllInvestments() {
     Tracker.investmentsArrayLength(account, (error, data) => {
@@ -870,8 +864,6 @@ Tracker.allEvents({
     } else { }
 });
 */
-
-
 
 /*
 function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {

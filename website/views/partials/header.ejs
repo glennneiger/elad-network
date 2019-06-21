@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <!-- Brand-->
-        <br>
+        <%# <br> %>
         <a class="navbar-brand pt-0" href="/dashboard">
           <img class="navbar-brand-img" src="../assets/img/brand/blue.png" alt="..." style="width: 100% max-width: 150px !important;">
         </a>
@@ -33,20 +33,26 @@
               </div>
             </div>
           </div>
+          <!-- Heading -->
+          <h6 class="navbar-heading text-muted">DASHBOARD</h6>
           <!-- Navigation-->
           <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/dashboard/"><i class="ni ni-tv-2 text-primary"></i> Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/"><i class="ni ni-chart-pie-35 text-primary"></i> My Investments</a></li>
             <li class="nav-item"><a class="nav-link" href="/dashboard/properties"><i class="ni ni-building text-success"></i> Properties</a></li>
-            <li class="nav-item"><a class="nav-link" href="/dashboard/create"><i class="ni ni-planet text-blue"></i> Create property</a></li>
-            <li class="nav-item"><a class="nav-link" href="/dashboard/manage"><i class="ni ni-settings-gear-65 text-dark"></i> Manage my properties</a></li>
-            <li class="nav-item"><a class="nav-link" href="/dashboard/logout"><i class="ni ni-door-3 text-orange"></i> Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/create"><i class="ni ni-fat-add text-blue"></i> Create property</a></li>
+            <li class="nav-item"><a class="nav-link" href="/dashboard/manage"><i class="ni ni-settings text-dark"></i> Manage my properties</a></li>
+            <%# <li class="nav-item"><a class="nav-link" href="/dashboard/logout"><i class="ni ni-door-3 text-orange"></i> Logout</a></li> %>
           </ul>
           <!-- Divider-->
           <hr class="my-3">
           <!-- Navigation-->
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="https://www.memecenter.com/search/logout"><i class="ni ni-button-power text-dark"></i> Logout</a></li>
+          </ul>
         </div>
       </div>
     </nav>
+
     <div class="main-content">
       <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div class="container-fluid">
@@ -65,7 +71,7 @@
                 </div>
                 <a class="dropdown-item" href="./examples/profile.html"><i class="ni ni-single-02"></i><span>My profile</span></a><a class="dropdown-item" href="./examples/profile.html"><i class="ni ni-settings-gear-65"></i><span>Settings</span></a><a class="dropdown-item" href="./examples/profile.html"><i class="ni ni-calendar-grid-58"></i><span>Activity</span></a><a class="dropdown-item" href="./examples/profile.html"><i class="ni ni-support-16"></i><span>Support</span></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#!"><i class="ni ni-user-run"></i><span>Logout</span></a>
+                <a class="dropdown-item" href="https://www.memecenter.com/search/logout"><i class="ni ni-user-run"></i><span>Logout</span></a>
               </div>
             </li>
           </ul>
