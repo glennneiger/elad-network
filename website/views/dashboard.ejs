@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%# <!DOCTYPE html>
 <html lang="en">
   <head>
     <title></title>
@@ -62,7 +62,10 @@
             </li>
           </ul>
         </div>
-      </nav>
+      </nav> %>
+
+<% include partials/header.ejs%>
+
       <div class="content">
         <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
           <div class="container-fluid">
@@ -149,7 +152,7 @@
           <tbody></tbody>
         </table>
       </div>
-    </div>
+    <%# </div>
     <!-- Argon Scripts-->
     <!-- Core-->
     <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -163,4 +166,6 @@
     <script src="../javascripts/portfolio.js"></script>
     <script src="../javascripts/web3.js"></script>
   </body>
-</html>
+</html> %>
+
+<% include partials/footer.ejs %>
