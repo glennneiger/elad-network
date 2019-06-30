@@ -69,16 +69,21 @@ app.get('/manage', function(req, res, next) {
     res.render('manage', {title:'Manage Properties'});
 });
 
-app.get('/properties', function(req, res, next) {
-    res.render('properties', {title:'Blank page'});
+app.get('/properties', function(req, res) {
+    Property.find({}, function(error, properties) {
+        if(error) {
+            console.log('There was a problem retrieving the properties from the database')
+            console.log(error)
+        } else {
+            res.render('properties', {
+                propertiesList: properties
+            })
+        }
+    })
 })
 
 app.get('/blank', function(req, res, next) {
     res.render('blank', {title:'Blank page'});
-})
-
-app.get('/file-uploaded', function(req, res, next) {
-    res.render('file-uploaded', {title:'Manage Properties'});
 })
 
 app.post('/login', 

@@ -9,14 +9,15 @@
             </h1>
 
             <div class="row">
-              <% for(let i = 0; i < 5; i++) { %>
+              <% for(let i = 0; i < propertiesList.length; i++) { %>
                 <div class="col-md-4 p-2">
                   <div class="card" style="width: 18rem;" style="height: 300px">
                     <img class="card-img-top" src="https://odis.homeaway.com/odis/listing/7abde58c-643d-4a4a-92a7-f2d68d37581e.f10.jpg" alt="Card image cap">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title.</p>
-                      <a href="#" class="btn btn-primary">See property</a>
+                      <h5 class="card-title"><%= propertiesList[i].propertyName %></h5>
+                      <p class="card-text"><%= propertiesList[i].propertyDescription%></p>
+                      <p class="card-text"><%= propertiesList[i].id%></p>
+                      <a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-primary">See property</a>
                     </div>
                   </div>
                 </div>
