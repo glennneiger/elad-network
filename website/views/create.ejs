@@ -11,7 +11,7 @@
                   <h1 class="text-center">
                     <p style="font-weight:bold; color:white; font-size:25px">Create a tokenized property</p>
                   </h1>
-                  <form action="/create-property" method="POST">
+                  <form action="/create-property" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                       <label style="font-weight:bold; color:white">Property Name</label>
                       <input class="form-control" type="text" placeholder="Ex: House 123 in South London" name="propertyName">
@@ -26,11 +26,11 @@
                     </div>
                     <div class="form-group">
                       <label style="font-weight:bold; color:white">Price of tokens in ETH</label>
-                      <input class="form-control" type="text" placeholder="Ex: 10" name="priceInEth">
+                      <input class="form-control" type="text" placeholder="Ex: 10" name="ethPrice">
                     </div>
                     <div class="form-group">
                       <label style="font-weight:bold; color:white">Price of tokens in ELAD</label>
-                      <input class="form-control" type="text" placeholder="Ex: 1,000" name="priceInElad">
+                      <input class="form-control" type="text" placeholder="Ex: 1,000" name="eladPrice">
                     </div>
                     <div class="form-group">
                       <label style="font-weight:bold; color:white">Fallback address (optional)</label>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                       <label style="font-weight:bold; color:white">Property Image</label>
-                      <input class="form-control" type="file" name="propertyImage">
+                      <input class="form-control" type="file" id="imageInput" name="propertyImage">
                     </div>
                     <br>
                     <button class="btn btn-secondary" type="submit">CREATE</button>

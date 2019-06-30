@@ -15,13 +15,12 @@ var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload')
 
 // var routes = require('./routes/index');
 // var dashboard = require('./routes/dashboard');
 
 const Property = require('./models/property')
-
-var app = express();
 
 mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
   useNewUrlParser: true
@@ -31,17 +30,24 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
     console.log(error)
   } else {
     console.log('We are connected to the database!')
-
+    
   }
 })
+
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(fileUpload())
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -104,8 +110,6 @@ app.get('/properties', function(req, res) {
           console.log('There was a problem retrieving the properties from the database')
           console.log(error)
       } else {
-          console.log('Properties:')
-          console.log(properties)
           res.render('properties', {
               propertiesList: properties
           })
@@ -149,12 +153,23 @@ app.get('/blank', function(req, res, next) {
   res.render('blank', {title:'Blank page'});
 })
 
+// EDITING NOW...
 app.post('/create-property', (req, res) => {
   var data = req.body
 
-  console.log('Data to be added:')
-  console.log(data)
-  
+  var imageFile = req.files.propertyImage
+  console.log('imageFile:')
+  console.log(imageFile)
+
+  imageFile.mv('public/uploads/' + imageFile.name, function(error) {
+    if(error) {
+      console.log('Couldn\'t upload the image file' )
+      console.log(error)
+    } else {
+      console.log('Image file successfully uploaded')
+    }
+  })
+
   Property.create({
       propertyName: data.propertyName,
       tokenSymbol: data.tokenSymbol,
@@ -163,18 +178,18 @@ app.post('/create-property', (req, res) => {
       eladPrice: data.eladPrice,
       fallbackAddress: data.fallbackAddress,
       propertyDescription: data.propertyDescription,
-      propertyImage: data.propertyImage
+      propertyImage: imageFile.name
   }, function(error, data) {
       if(error) {
           console.log('There was a problem adding a document to the collection')
           console.log(error)
       } else {
           console.log('Data successfully added to the collection')
-          console.log(data)
+          // console.log(data)
       }
   })
 
-  res.redirect('manage')//, {title:'Manage Properties'});
+  res.redirect('properties')//, {title:'Manage Properties'});
 })
 
 app.get('*', (req, res) => {
