@@ -17,9 +17,12 @@ var mongo = require('mongodb');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload')
 
+// var funcoes = require('./public/javascripts/teste')
+
 // var routes = require('./routes/index');
 // var dashboard = require('./routes/dashboard');
 
+// Property MongoDB model
 const Property = require('./models/property')
 
 mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
@@ -153,13 +156,12 @@ app.get('/blank', function(req, res, next) {
   res.render('blank', {title:'Blank page'});
 })
 
-// EDITING NOW...
 app.post('/create-property', (req, res) => {
   var data = req.body
 
   var imageFile = req.files.propertyImage
-  console.log('imageFile:')
-  console.log(imageFile)
+  // console.log('imageFile:')
+  // console.log(imageFile)
 
   imageFile.mv('public/uploads/' + imageFile.name, function(error) {
     if(error) {
@@ -189,7 +191,7 @@ app.post('/create-property', (req, res) => {
       }
   })
 
-  res.redirect('properties')//, {title:'Manage Properties'});
+  res.redirect('properties')
 })
 
 app.get('*', (req, res) => {

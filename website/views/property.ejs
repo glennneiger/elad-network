@@ -1,16 +1,18 @@
 <% include partials/header.ejs%>
 
       <div class="content">
+
         <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
           <div class="container-fluid">
             <div class="header-body">
               <!-- Card stats-->
-              <div class="text-center" style="color:#fff">
+              <%# <div class="text-center" style="color:#fff">
                 <p class="text-uppercase">blank header</p>
-              </div>
+              </div> %>
             </div>
           </div>
         </div>
+
         <!-- Page content--><br>
         <h1>Property: <%= propertyName %></h1>
         <h2>Token symbol: <%= tokenSymbol %></h2>
@@ -20,7 +22,12 @@
         <h2>Fallback address: <%= fallbackAddress %></h2>
         <h2>Description: <%= propertyDescription %></h2>
         <h2>Image: <%= propertyImage %></h2>
+        <img src="../uploads/<%= propertyImage %>">
         <br>
+        
       </div>
+    
+    <!-- End of div main-content  -->
+    </div>
 
 <% include partials/footer.ejs %>

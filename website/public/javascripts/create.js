@@ -9,7 +9,7 @@ function setAddress() {
 
 setAddress();
 
-var FactoryContract = web3.eth.contract([
+var factoryContractABI = web3.eth.contract([
 	{
 		"constant": true,
 		"inputs": [
@@ -200,14 +200,13 @@ var FactoryContract = web3.eth.contract([
 	}
 ]);
 
-var factoryAddress = "0x71f85c2e175df7d258bc7362d45e0f7b38513600";
+var factoryContractAddress = "0x71f85c2e175df7d258bc7362d45e0f7b38513600";
 
-var Factory = FactoryContract.at(factoryAddress);
+var Factory = factoryContractABI.at(factoryContractAddress);
 
 const latest = web3.eth.getBlockNumber();
 
 var getEvents = true;
-
 
 function createNew() {
     var symbol = document.getElementById('tokenSymbol').value;
@@ -218,7 +217,6 @@ function createNew() {
     var fallback = document.getElementById('fallback').value;
     if (fallback == "") { fallback = account }
 	createToken(symbol, name, supply, priceElad, priceEth, fallback);
-	
 }
 
 function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {
@@ -226,18 +224,18 @@ function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress)
     var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
         from: account,
         // gas: "3000000",
-        to: factoryAddress,
+        to: factoryContractAddress,
         // value: checkPrice(0),
         data: ""
     }, function (err, transactionHash) {
         if (!err)
 			console.log(transactionHash);
 			window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
-    }
-    )
+    })
 };
 
-
+// watch for contract events since last block
+// what we want here is the next event emitted, which is the contract creation
 Factory.allEvents({
     fromBlock: latest
 }, (error, event) => {
@@ -246,5 +244,3 @@ Factory.allEvents({
 		window.location = "/users/manage";
     } else { }
 });
-
-
