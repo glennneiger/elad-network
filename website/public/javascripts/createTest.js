@@ -209,8 +209,6 @@ const latest = web3.eth.getBlockNumber();
 var getEvents = true;
 
 function createNew() {
-    alert('Vai criar o token...')
-
     var symbol = document.getElementById('_tokenSymbol').value;
     var name = document.getElementById('_propertyName').value;
     var supply = document.getElementById('_totalSupply').value;
@@ -219,8 +217,6 @@ function createNew() {
     var fallback = document.getElementById('_fallbackAddress').value;
     if (fallback == "") { fallback = account }
     createToken(symbol, name, supply, priceElad, priceEth, fallback);
-    
-    alert('Passou da chamada pra criar o token')
 }
 
 function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {

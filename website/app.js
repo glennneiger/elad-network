@@ -127,8 +127,8 @@ app.get('/properties/:id', function(req, res) {
     if(error) {
       console.log("Couldn't find property with that id:")
     } else {
-      console.log('Property found:')
-      console.log(foundProperty)
+      // console.log('Property found:')
+      // console.log(foundProperty)
 
       res.render('property', {
         propertyName: foundProperty.propertyName,

@@ -5,25 +5,43 @@
         <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
           <div class="container-fluid">
             <div class="header-body">
-              <!-- Card stats-->
-              <%# <div class="text-center" style="color:#fff">
-                <p class="text-uppercase">blank header</p>
-              </div> %>
-            </div>
-          </div>
-        </div>
 
-        <!-- Page content--><br>
-        <h1>Property: <%= propertyName %></h1>
-        <h2>Token symbol: <%= tokenSymbol %></h2>
-        <h2>Total supply: <%= totalSupply %></h2>
-        <h2>ETH price: <%= ethPrice %></h2>
-        <h2>ELAD price: <%= eladPrice %></h2>
-        <h2>Fallback address: <%= fallbackAddress %></h2>
-        <h2>Description: <%= propertyDescription %></h2>
-        <h2>Image: <%= propertyImage %></h2>
-        <img src="../uploads/<%= propertyImage %>">
-        <br>
+            
+        <div class="container" style="width: 1200px;">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h1 class="mb-0"><%= propertyName %></h3>
+            </div>
+            
+            <div class="row ml-3">
+              <div class="col ml-0">
+                <p><%= propertyDescription %></p>
+                <h3>Token symbol: <%= tokenSymbol %></h2>
+                <h3>Total supply: <%= totalSupply %></h2>
+                <h3>ETH price: <%= ethPrice %></h2>
+                <h3>ELAD price: <%= eladPrice %></h2>
+                <%# <br>
+                <input type="text" size='20' placeholder="ETH to send..." /> %>
+                <br><br>
+                <button class="btn btn-success" href="#">Buy <%= tokenSymbol %> tokens</button>
+              </div>
+
+              <div class="col">
+                <img src="../uploads/<%= propertyImage %>" class="img-fluid" alt="Responsive image" width="500px">
+                <br><br><br>
+              </div>
+            </div>
+
+            <div class="row text-center">
+              <div class="col">
+                <img src="../uploads/map.png" width="1000px">
+                <br><br>
+              </div>
+            </div>
+
+          </div>
+
+        <br><br><br>
         
       </div>
     
