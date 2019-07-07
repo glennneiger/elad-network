@@ -114,7 +114,8 @@ app.get('/properties', function(req, res) {
           console.log(error)
       } else {
           res.render('properties', {
-              propertiesList: properties
+              propertiesList: properties,
+              title: 'Properties'
           })
       }
   })
@@ -138,14 +139,15 @@ app.get('/properties/:id', function(req, res) {
         eladPrice: foundProperty.eladPrice,
         fallbackAddress: foundProperty.fallbackAddress,
         propertyDescription: foundProperty.propertyDescription,
-        propertyImage: foundProperty.propertyImage
+        propertyImage: foundProperty.propertyImage,
+        title: 'Property'
       })
     }
   })
 })
 
 app.get('/create', function(req, res, next) {
-  res.render('create', {title:'Create Property'});
+  res.render('create', { title:'Create Property' });
 })
 
 app.get('/manage', function(req, res, next) {

@@ -1,20 +1,20 @@
 <% include partials/header.ejs%>
 
       <div class="content">
-        <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="header bg-white pb-8 pt-5 pt-md-8">
           <div class="container">
 
             <h1>
-              <font color="white">PROPERTIES</font>
+              <font color="black">PROPERTIES</font>
             </h1>
 
             <div class="row">
               <% for(let i = 0; i < propertiesList.length; i++) { %>
                 <div class="col-md-4 p-2">
-                  <div class="card" style="width: 18rem;" style="height: 300px">
+                  <div class="card bg-white" style="width: 18rem;" style="height: 300px">
                     <img class="card-img-top" src="../uploads/<%= propertiesList[i].propertyImage %>" alt="Card image cap">
                     <div class="card-body">
-                      <h5 class="card-title"><%= propertiesList[i].propertyName %></h5>
+                      <h2 class="card-title"><%= propertiesList[i].propertyName %></h1>
                       <p class="card-text"><%= propertiesList[i].propertyDescription%></p>
                       <a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-primary">See property</a>
                     </div>

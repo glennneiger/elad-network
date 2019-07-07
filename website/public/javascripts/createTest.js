@@ -212,11 +212,12 @@ function createNew() {
     var symbol = document.getElementById('_tokenSymbol').value;
     var name = document.getElementById('_propertyName').value;
     var supply = document.getElementById('_totalSupply').value;
-    var priceElad = document.getElementById('_eladPrice').value;
+    // var priceElad = document.getElementById('_eladPrice').value;
     var priceEth = document.getElementById('_ethPrice').value;
-    var fallback = document.getElementById('_fallbackAddress').value;
-    if (fallback == "") { fallback = account }
-    createToken(symbol, name, supply, priceElad, priceEth, fallback);
+    // var fallback = document.getElementById('_fallbackAddress').value;
+    // if (fallback == "") { fallback = account }
+	// createToken(symbol, name, supply, priceElad, priceEth, fallback);
+	createToken(symbol, name, supply, 10, priceEth, account);
 }
 
 function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {
