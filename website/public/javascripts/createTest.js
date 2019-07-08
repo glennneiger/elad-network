@@ -9,6 +9,9 @@ function setAddress() {
 
 setAddress();
 
+console.log('Address:')
+console.log(account)
+
 var factoryContractABI = web3.eth.contract([
 	{
 		"constant": true,
@@ -206,6 +209,105 @@ var Factory = factoryContractABI.at(factoryContractAddress);
 
 const latest = web3.eth.getBlockNumber();
 
+// ---
+var factoryABI = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_symbol",
+				"type": "string"
+			},
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_supplyOfTokens",
+				"type": "uint256"
+			},
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "createProperty",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			}
+		],
+		"name": "NewToken",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfTokens",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "tokens",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalTokens",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+])
+
+var factoryAddress = "0x44960733e776c6995496af2b56baf7836e5b6162"
+
+var factory = factoryABI.at(factoryAddress)
+// ---
+
 var getEvents = true;
 
 function createNew() {
@@ -217,19 +319,69 @@ function createNew() {
     // var fallback = document.getElementById('_fallbackAddress').value;
     // if (fallback == "") { fallback = account }
 	// createToken(symbol, name, supply, priceElad, priceEth, fallback);
+
+	var txObject = {
+		from: account,
+		to: factoryAddress
+        // value: web3.toWei(0, 'ether'),
+        // data: web3.toHex(name),
+        // gas: 300000
+    }
+
+	// factory.createProperty(symbol, name, supply, account, txObject, function (error, txHash) {
+    //     if (error) {
+    //         console.log('There was an error with the transaction:')
+    //         console.log(error)
+    //     } else {
+	// 		console.log(txHash);
+	// 		window.alert("Property being created, please wait, MOTHAFUCKA")
+    //     }
+	// }))
+
+	// var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
+    //     from: account,
+    //     // gas: "3000000",
+    //     to: factoryContractAddress,
+    //     // value: checkPrice(0),
+    //     data: ""
+    // }, function (err, transactionHash) {
+    //     if (!err)
+	// 		console.log(transactionHash);
+	// 		window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
+    // })
+	
+	console.log('Fez a transacao!')
+
 	createToken(symbol, name, supply, 10, priceEth, account);
 }
 
 function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {
+	// var eth = 1000000000000000000;
+    // var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
+    //     from: account,
+    //     // gas: "3000000",
+    //     to: factoryContractAddress,
+    //     // value: checkPrice(0),
+    //     data: ""
+    // }, function (err, transactionHash) {
+	// 	console.log(tx)
+	// 	if (!err)
+	// 		console.log('tx hash:')
+	// 		console.log(transactionHash);
+	// 		window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
+	// })
 	var eth = 1000000000000000000;
-    var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
+	// createProperty(symbol, name, supply, account, txObject, function (error, txHash) {
+    var tx = factory.createProperty(symbol, name, supply, account, {
         from: account,
         // gas: "3000000",
-        to: factoryContractAddress,
+        to: factoryAddress,
         // value: checkPrice(0),
         data: ""
     }, function (err, transactionHash) {
-        if (!err)
+		console.log(tx)
+		if (!err)
+			console.log('tx hash:')
 			console.log(transactionHash);
 			window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
     })
@@ -242,6 +394,7 @@ Factory.allEvents({
 }, (error, event) => {
     if (getEvents) {
 		console.log(event.args._contract);
-		window.location = "/users/manage";
-    } else { }
+		alert('Token created!')
+		window.location = "/properties";
+    }
 });
