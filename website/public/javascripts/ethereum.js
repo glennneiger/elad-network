@@ -28,21 +28,19 @@ window.addEventListener('load', async () => {
             console.log('There was an error retrieving the user\'s Ethereum account address')
             console.log(error)
         } else {
-            accountAddress = result
+            accountAddress = String(result)
             $('#accountAddress').text(accountAddress)
             console.log(accountAddress)
 
-            let strAddress = accountAddress + ''
-            strAddress = strAddress.substring(2, strAddress.length)
-
             // get account balance in Ether
-            web3.eth.getBalance(strAddress, function(error, res) {
+            web3.eth.getBalance(accountAddress, function(error, res) {
                 if(error) {
                     console.log(error)
                 } else {
-                    accountBalance = res
+                    accountBalance = web3.fromWei(res, 'ether')
                     console.log(res)
-                    $('#accountBalance').text( web3.fromWei(accountBalance, 'ether').toFixed(4) + ' ETH')
+
+                    $('#accountBalance').text(accountBalance.toFixed(4) + ' ETH')
                 }
             });
         }
