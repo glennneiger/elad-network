@@ -320,71 +320,32 @@ function createNew() {
     // if (fallback == "") { fallback = account }
 	// createToken(symbol, name, supply, priceElad, priceEth, fallback);
 
-	var txObject = {
-		from: account,
-		to: factoryAddress
-        // value: web3.toWei(0, 'ether'),
-        // data: web3.toHex(name),
-        // gas: 300000
-    }
+	// var txObject = {
+	// 	from: account,
+	// 	to: factoryAddress
+    //     // value: web3.toWei(0, 'ether'),
+    //     // data: web3.toHex(name),
+    //     // gas: 300000
+    // }
 
-	// factory.createProperty(symbol, name, supply, account, txObject, function (error, txHash) {
-    //     if (error) {
-    //         console.log('There was an error with the transaction:')
-    //         console.log(error)
-    //     } else {
-	// 		console.log(txHash);
-	// 		window.alert("Property being created, please wait, MOTHAFUCKA")
-    //     }
-	// }))
-
-	// var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
-    //     from: account,
-    //     // gas: "3000000",
-    //     to: factoryContractAddress,
-    //     // value: checkPrice(0),
-    //     data: ""
-    // }, function (err, transactionHash) {
-    //     if (!err)
-	// 		console.log(transactionHash);
-	// 		window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
-    // })
 	
-	console.log('Fez a transacao!')
-
-	createToken(symbol, name, supply, 10, priceEth, account);
+	createToken(symbol, name, supply, priceEth, account);
 }
 
-function createToken(symbol, name, supply, priceElad, priceEth, fallbackAddress) {
-	// var eth = 1000000000000000000;
-    // var tx = Factory.createProperty(symbol, name, priceEth * eth, priceElad, supply, fallbackAddress, {
-    //     from: account,
-    //     // gas: "3000000",
-    //     to: factoryContractAddress,
-    //     // value: checkPrice(0),
-    //     data: ""
-    // }, function (err, transactionHash) {
-	// 	console.log(tx)
-	// 	if (!err)
-	// 		console.log('tx hash:')
-	// 		console.log(transactionHash);
-	// 		window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
-	// })
-	var eth = 1000000000000000000;
+function createToken(symbol, name, supply, priceEth, fallbackAddress) {
 	// createProperty(symbol, name, supply, account, txObject, function (error, txHash) {
     var tx = factory.createProperty(symbol, name, supply, account, {
         from: account,
-        // gas: "3000000",
         to: factoryAddress,
-        // value: checkPrice(0),
         data: ""
     }, function (err, transactionHash) {
-		console.log(tx)
-		if (!err)
-			console.log('tx hash:')
+		if (!err) {
+			console.log('TRANSACTION hash:')
 			console.log(transactionHash);
 			window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
+		}
     })
+	console.log(tx)
 };
 
 // watch for contract events since last block

@@ -701,7 +701,7 @@ function getAllInvestments() {
     });
 }
 
-getAllInvestments();
+// getAllInvestments();
 
 /*
 function setUp(length) {

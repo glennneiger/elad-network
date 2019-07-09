@@ -158,12 +158,15 @@ app.get('/blank', function(req, res, next) {
   res.render('blank', {title:'Blank page'});
 })
 
+/**
+ *  Property factory contract details
+ */
+// paste here...
+
 app.post('/create-property', (req, res) => {
   var data = req.body
 
   var imageFile = req.files.propertyImage
-  console.log('imageFile:')
-  console.log(imageFile)
 
   imageFile.mv('public/uploads/' + imageFile.name, function(error) {
     if(error) {
