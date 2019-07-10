@@ -227,6 +227,10 @@ var factoryABI = web3.eth.contract([
 				"type": "uint256"
 			},
 			{
+				"name": "_tokenEthPrice",
+				"type": "uint256"
+			},
+			{
 				"name": "_owner",
 				"type": "address"
 			}
@@ -253,20 +257,6 @@ var factoryABI = web3.eth.contract([
 		],
 		"name": "NewToken",
 		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfTokens",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	},
 	{
 		"constant": true,
@@ -303,7 +293,7 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-var factoryAddress = "0x44960733e776c6995496af2b56baf7836e5b6162"
+var factoryAddress = "0x709147918F86cEAA51326B48705674fA4B57F2DE"
 
 var factory = factoryABI.at(factoryAddress)
 // ---
@@ -320,42 +310,35 @@ function createNew() {
     // if (fallback == "") { fallback = account }
 	// createToken(symbol, name, supply, priceElad, priceEth, fallback);
 
-	// var txObject = {
-	// 	from: account,
-	// 	to: factoryAddress
-    //     // value: web3.toWei(0, 'ether'),
-    //     // data: web3.toHex(name),
-    //     // gas: 300000
-    // }
-
 	
 	createToken(symbol, name, supply, priceEth, account);
 }
 
-function createToken(symbol, name, supply, priceEth, fallbackAddress) {
-	// createProperty(symbol, name, supply, account, txObject, function (error, txHash) {
-    var tx = factory.createProperty(symbol, name, supply, account, {
+function createToken(symbol, name, supply, priceEth, owner) {
+    var tx = factory.createProperty(symbol, name, supply, priceEth, owner, {
         from: account,
         to: factoryAddress,
         data: ""
-    }, function (err, transactionHash) {
-		if (!err) {
-			console.log('TRANSACTION hash:')
-			console.log(transactionHash);
-			window.alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
+    }, function (error, txHash) {
+		if (error) {
+			console.log('There was an error creating the token')
+			console.log(error)
+		} else {
+			console.log('tx hash:')
+			console.log(txHash);
+			alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
 		}
     })
-	console.log(tx)
 };
 
 // watch for contract events since last block
 // what we want here is the next event emitted, which is the contract creation
-Factory.allEvents({
+factory.allEvents({
     fromBlock: latest
 }, (error, event) => {
     if (getEvents) {
 		console.log(event.args._contract);
-		alert('Token created!')
+		window.alert('Token created!')
 		window.location = "/properties";
     }
 });

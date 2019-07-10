@@ -18,9 +18,8 @@ const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload')
 
 // var funcoes = require('./public/javascripts/teste')
+// var daniel = require('./public/javascripts/createTest.js')
 
-// var routes = require('./routes/index');
-// var dashboard = require('./routes/dashboard');
 
 // Property MongoDB model
 const Property = require('./models/property')
@@ -89,16 +88,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.get('*', function(req, res, next) {
-//   res.locals.user = req.user || null;
-//   next();
-// })
-
 // routing changes ---- ---- ---- ---- ---- ---- ---- ---- 
-
-// app.use('/', routes);
-// app.use('/dashboard', dashboard);
-
 app.get('/', function(req, res, next) {
   res.render('index', {title:'Dashboard'});
 })
@@ -176,6 +166,9 @@ app.post('/create-property', (req, res) => {
       console.log('Image file successfully uploaded')
     }
   })
+
+  // call createPropertyToken() from another file
+  // createToken(symbol, name, supply, priceEth, account);
 
   Property.create({
       propertyName: data.propertyName,
