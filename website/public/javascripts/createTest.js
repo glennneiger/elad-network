@@ -209,7 +209,7 @@ var Factory = factoryContractABI.at(factoryContractAddress);
 
 const latest = web3.eth.getBlockNumber();
 
-// ---
+// --- FACTORY ---
 var factoryABI = web3.eth.contract([
 	{
 		"constant": false,
@@ -293,23 +293,17 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-var factoryAddress = "0x709147918F86cEAA51326B48705674fA4B57F2DE"
+// 0x8C856C64Ec73D06b662F930923Fbf4d5a32B58d6 (ropsten)
+var factoryAddress = "0x87fe62f5db5f3dc753091d936bd0da37ae4b2c2e"
 
 var factory = factoryABI.at(factoryAddress)
 // ---
 
-var getEvents = true;
-
 function createNew() {
-    var symbol = document.getElementById('_tokenSymbol').value;
-    var name = document.getElementById('_propertyName').value;
-    var supply = document.getElementById('_totalSupply').value;
-    // var priceElad = document.getElementById('_eladPrice').value;
-    var priceEth = document.getElementById('_ethPrice').value;
-    // var fallback = document.getElementById('_fallbackAddress').value;
-    // if (fallback == "") { fallback = account }
-	// createToken(symbol, name, supply, priceElad, priceEth, fallback);
-
+    var symbol = $('#_tokenSymbol').val()
+    var name = $('#_propertyName').val()
+    var supply = $('#_totalSupply').val()
+    var priceEth = $('#_ethPrice').val()
 	
 	createToken(symbol, name, supply, priceEth, account);
 }
@@ -336,7 +330,7 @@ function createToken(symbol, name, supply, priceEth, owner) {
 factory.allEvents({
     fromBlock: latest
 }, (error, event) => {
-    if (getEvents) {
+    if (true) {
 		console.log(event.args._contract);
 		window.alert('Token created!')
 		window.location = "/properties";
