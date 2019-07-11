@@ -9,17 +9,11 @@ var session = require('express-session');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var LocalStrategy = require('passport-local').Strategy;
-// var multer = require('multer');
-// var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
-var mongo = require('mongodb');
+// var mongo = require('mongodb');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload')
-
-// var funcoes = require('./public/javascripts/teste')
-// var daniel = require('./public/javascripts/createTest.js')
-
 
 // Property MongoDB model
 const Property = require('./models/property')
@@ -32,7 +26,6 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
     console.log(error)
   } else {
     console.log('We are connected to the database!')
-    
   }
 })
 
@@ -88,7 +81,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// routing changes ---- ---- ---- ---- ---- ---- ---- ---- 
+// routing changes --- beginning 
 app.get('/', function(req, res, next) {
   res.render('index', {title:'Dashboard'});
 })
@@ -98,6 +91,15 @@ app.get('/dashboard', function(req, res, next) {
 })
 
 app.get('/properties', function(req, res) {
+  Property.countDocuments({}, (error, num) => {
+    if(error) {
+      console.log('There was a problem retrieving the properties from the database')
+      console.log(error)
+    } else {
+      console.log('Num of properties: ' + num)
+    }
+  })
+
   Property.find({}, function(error, properties) {
       if(error) {
           console.log('There was a problem retrieving the properties from the database')
@@ -148,11 +150,6 @@ app.get('/blank', function(req, res, next) {
   res.render('blank', {title:'Blank page'});
 })
 
-/**
- *  Property factory contract details
- */
-// paste here...
-
 app.post('/create-property', (req, res) => {
   var data = req.body
 
@@ -166,9 +163,6 @@ app.post('/create-property', (req, res) => {
       console.log('Image file successfully uploaded')
     }
   })
-
-  // call createPropertyToken() from another file
-  // createToken(symbol, name, supply, priceEth, account);
 
   Property.create({
       propertyName: data.propertyName,
@@ -195,8 +189,7 @@ app.post('/create-property', (req, res) => {
 app.get('*', (req, res) => {
   res.send('Error! Page not found')
 })
-
-// routing changes ---- ---- ---- ---- ---- ---- ---- ---- 
+// routing changes --- end
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

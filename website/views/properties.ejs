@@ -3,28 +3,31 @@
       <div class="content">
         <div class="header bg-white pb-8 pt-5 pt-md-8">
           <div class="container">
-
-            <%# <h1>
-              <font color="black">PROPERTIES</font>
-            </h1> %>
-
-            <div class="row">
-              <% for(let i = 0; i < propertiesList.length; i++) { %>
+            <% if(propertiesList.length == 0){ %>
+              <div class="text-center">
+                <div class="container">
+                  <div class="card shadow py-5" style="width: 1200px; heigth:1200px">
+                    <h1>No properties listed yet</h1>
+                  </div>
+                </div>
+              </div>
+            <% } else{ %>  
+              <div class="row">
+                <% for(let i = 0; i < propertiesList.length; i++) { %>
                 <div class="col-md-4 p-2">
                   <div class="card bg-white" style="width: 18rem;" style="height: 300px">
                     <img class="card-img-top" src="../uploads/<%= propertiesList[i].propertyImage %>" alt="Card image cap">
                     <div class="card-body">
-                      <h2 class="card-title"><%= propertiesList[i].propertyName %></h1>
+                      <h2 class="card-title">
+                      <%= propertiesList[i].propertyName %></h1>
                       <p class="card-text"><%= propertiesList[i].propertyDescription%></p>
                       <a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-primary">See property</a>
                     </div>
                   </div>
                 </div>
-              <% } %>
-            </div>
-
-            <br>
-
+                <% } %>
+              </div>
+            <% } %>
             <!--
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
@@ -46,13 +49,14 @@
               </ul>
             </nav>
             -->
-
-            <!-- Container -> end-->
+          <!-- Container -> end-->
           </div>
         </div>
       </div>
     
     <!-- End of div main-content  -->
     </div>
+
+    <script src="../javascripts/propertiesAddresses.js"></script>
 
 <% include partials/footer.ejs %>
