@@ -580,7 +580,7 @@ function buyTokens() {
 						    if(error) {
 						        console.log(error)
 						    } else {
-						        alert('tx hash: ' + result)
+						        alert('Your token purchase transaction has been broadcasted.\ntx hash: ' + result)
 						    }
 						})
 					}

@@ -498,7 +498,7 @@ function loadPropertyTokens() {
 							var name = parsedData[0]
 							var symbol = parsedData[1]
 							var totalSupply = formatNumber(parsedData[2].c[0])
-							var tokensBought = formatNumber(parsedData[3].c[0])
+							var tokensBought = formatNumber(balance)
 							var tokensLeft = formatNumber(parsedData[4].c[0])
 							
 							cell0.innerHTML = name + ' (' + symbol + ')'
