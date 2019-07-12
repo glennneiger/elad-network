@@ -3,8 +3,37 @@
       <div class="content">
         <div class="header bg-white pb-8 pt-5 pt-md-8">
           <div class="container-fluid">
+
+            <div class="container-fluid">
+            <!-- Table-->
+            <div class="row">
+              <div class="col">
+                <div class="card shadow">
+                  <div class="card-header border-0">
+                    <h1 class="mb-0">My Investments</h1>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table align-items-center table-flush" id="investmentsTable">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Property name (symbol)</th>
+                          <th scope="col">Total Supply</th>
+                          <th scope="col">My Balance</th>
+                          <th scope="col">Tokens Left</th>
+                          <th scope="col">Token Address</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- Container -> end-->
+          </div>
+
+            <!--
             <div class="header-body">
-              <!-- Card stats-->
               <div class="row">
                 <div class="col-xl-3 col-lg-6">
                   <div class="card card-stats mb-4 mb-xl-0">
@@ -68,10 +97,13 @@
                 </div>
               </div>
             </div>
+            -->
+
           </div>
         </div>
         <!-- Page content--><br>
-        <!-- Projects table-->
+        
+        <!--
         <h2 style="margin-left: 42% !important;"> My Investments</h2>
         <br>
         <table class="table align-items-center table-flush" id="portfolioTable" style="max-width: 90% !important; margin-left: 5% !important;">
@@ -85,14 +117,17 @@
           </thead>
           <tbody></tbody>
         </table>
+        -->
+
       </div>
     
     <!-- End of div main-content  -->
     </div>
 
     <script src="../javascripts/web3.js"></script>
-    <!-- <script src="../javascripts/web3lib.js"></script> -->
-    <script src="../javascripts/portfolio.js"></script>
+    <!-- <script src="../javascripts/web3lib.js"></script>-->
+    <!--<script src="../javascripts/portfolio.js"></script>-->
+    <script src="../javascripts/investments.js"></script>
 
 
 <% include partials/footer.ejs %>

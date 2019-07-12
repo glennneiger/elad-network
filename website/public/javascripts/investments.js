@@ -479,32 +479,37 @@ function loadPropertyTokens() {
 				// instance of each token
                 var propertyTokenAddress = address
 				var property = propertyTokenABI.at(propertyTokenAddress)
+
+				property.myBalance(function(error, balance) {
+					if(balance > 0) {
+						// finally we get data from each token
+						property.propertyDetails(function(error, details) {
+		
+							// populate table with token details
+							var table = document.getElementById("investmentsTable")
+							var row = table.insertRow(1)
+							var cell0 = row.insertCell(0)
+							var cell1 = row.insertCell(1)
+							var cell2 = row.insertCell(2)
+							var cell3 = row.insertCell(3)
+							var cell4 = row.insertCell(4)
+		
+							var parsedData = details
+							var name = parsedData[0]
+							var symbol = parsedData[1]
+							var totalSupply = formatNumber(parsedData[2].c[0])
+							var tokensBought = formatNumber(parsedData[3].c[0])
+							var tokensLeft = formatNumber(parsedData[4].c[0])
+							
+							cell0.innerHTML = name + ' (' + symbol + ')'
+							cell1.innerHTML = totalSupply
+							cell2.innerHTML = tokensBought
+							cell3.innerHTML = tokensLeft
+							cell4.innerHTML = "<a href=\"https://kovan.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
+						})
+					}
+				})
 				
-                // finally we get data from each token
-                property.propertyDetails(function(error, details) {
-
-					// populate table with token details
-					var table = document.getElementById("tokensTable")
-					var row = table.insertRow(1)
-					var cell0 = row.insertCell(0)
-					var cell1 = row.insertCell(1)
-					var cell2 = row.insertCell(2)
-					var cell3 = row.insertCell(3)
-					var cell4 = row.insertCell(4)
-
-					var parsedData = details
-					var name = parsedData[0]
-					var symbol = parsedData[1]
-					var totalSupply = formatNumber(parsedData[2].c[0])
-					var tokensBought = formatNumber(parsedData[3].c[0])
-					var tokensLeft = formatNumber(parsedData[4].c[0])
-					
-					cell0.innerHTML = name + ' (' + symbol + ')'
-					cell1.innerHTML = totalSupply
-					cell2.innerHTML = tokensBought
-					cell3.innerHTML = tokensLeft
-					cell4.innerHTML = "<a href=\"https://kovan.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
-                })
             })
         }
     })
