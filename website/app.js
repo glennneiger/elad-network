@@ -96,7 +96,7 @@ app.get('/properties', function(req, res) {
       console.log('There was a problem retrieving the properties from the database')
       console.log(error)
     } else {
-      console.log('Num of properties: ' + num)
+      console.log('Number of properties: ' + num)
     }
   })
 
@@ -144,6 +144,10 @@ app.get('/create', function(req, res, next) {
 
 app.get('/manage', function(req, res, next) {
   res.render('manage', {title:'Manage Properties'});
+})
+
+app.get('/tokens', function(req, res, next) {
+  res.render('tokens', {title:'Property Tokens'});
 })
 
 app.get('/blank', function(req, res, next) {

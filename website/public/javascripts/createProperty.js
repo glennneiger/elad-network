@@ -87,7 +87,7 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-var factoryAddress = "0x87D96A949aC66CE34907679175fE5197044099d8"
+var factoryAddress = "0xcd73948b5775451057aa2665958bd6e57ab442af"
 
 var factory = factoryABI.at(factoryAddress)
 

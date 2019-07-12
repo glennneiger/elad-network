@@ -84,12 +84,42 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-var factoryAddress = "0x87D96A949aC66CE34907679175fE5197044099d8"
+var factoryAddress = "0xcd73948B5775451057aA2665958BD6E57Ab442af"
 
 var factory = factoryABI.at(factoryAddress)
 
 // Property Contract ABI
 var propertyTokenABI = web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "propertyDetails",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
 	{
 		"constant": true,
 		"inputs": [],
@@ -446,7 +476,7 @@ function getAddresses() {
                 var property = propertyTokenABI.at(propertyTokenAddress)
                 // finally we get data from each token
                 property.name(function(error, name) {
-                    console.log('(' + address + ') Token name: ' + name)
+                    console.log(address + ':\n' + name)
                 })
             })
         }
