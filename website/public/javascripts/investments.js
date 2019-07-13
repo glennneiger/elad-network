@@ -467,8 +467,6 @@ var tokens = []
 
 // get tokens addresses
 function loadPropertyTokens() {
-	// var table = document.getElementById("tokensTable")
-
     // first we get number of tokens created
     factory.totalTokens(function(error, number) {
 

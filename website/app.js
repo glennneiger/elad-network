@@ -1,23 +1,27 @@
-var createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const bodyParser = require('body-parser');
-var favicon = require('serve-favicon');
-var session = require('express-session');
-var passport = require('passport');
-var expressValidator = require('express-validator');
-var LocalStrategy = require('passport-local').Strategy;
-var flash = require('connect-flash');
-var bcrypt = require('bcryptjs');
-// var mongo = require('mongodb');
-const mongoose = require('mongoose');
+var createError = require('http-errors')
+const express = require('express') // ok
+const path = require('path') // ok
+var cookieParser = require('cookie-parser')
+var logger = require('morgan')
+const bodyParser = require('body-parser') // ok
+var favicon = require('serve-favicon')
+var session = require('express-session') // ok
+var passport = require('passport') // ok
+require('./passport')(passport)
+var expressValidator = require('express-validator')
+var LocalStrategy = require('passport-local').Strategy
+var flash = require('connect-flash')
+// var bcrypt = require('bcryptjs')
+var bcrypt = require('bcrypt-nodejs')
+// var mongo = require('mongodb')
+const mongoose = require('mongoose') // ok
 const fileUpload = require('express-fileupload')
 
 // Property MongoDB model
 const Property = require('./models/property')
+const User = require('./models/user')
 
+// database name: elad-network
 mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
   useNewUrlParser: true
 }, function(error) {
@@ -28,6 +32,14 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
     console.log('We are connected to the database!')
   }
 })
+
+function hashPassword(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+}
+
+// function comparePassword(password, hash) {
+//   return bcrypt.compareSync(password, hash)
+// }
 
 var app = express();
 
@@ -48,10 +60,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Handle Sessions
 app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
-}));
+  // secret: 'secret',
+  // saveUninitialized: true,
+  // resave: true
+  secret: 'thesecret',
+  saveUninitialized: false,
+  resave: false
+}))
 
 // Passport 
 app.use(passport.initialize());
@@ -84,6 +99,59 @@ app.use(function (req, res, next) {
 // routing changes --- beginning 
 app.get('/', function(req, res, next) {
   res.render('index', {title:'Dashboard'});
+})
+
+app.get('/login', function(req, res, next) {
+  res.render('login', {title:'Login'});
+})
+
+app.get('/signup', function(req, res, next) {
+  res.render('signup', {title:'Signup'})
+})
+
+app.post('/teste', (req, res) => {
+  var data = req.body
+  
+  var username = data.uname
+  var password = data.passwd
+  
+  User.findOne({
+    username: username,
+    password: password
+  }, function(error, doc) {
+    if(error) {
+      console.log('There was a problem retrieving the user from database')
+      console.log(error)
+  } else {
+      if(doc) {
+        console.log('Username already exists')
+      } else {
+        // record new user
+        console.log('New user: ' + username)
+        User.create({
+          username: username,
+          password: hashPassword(password)
+        }, function(error, data) {
+          if(error) {
+              console.log('There was a problem adding the user to the collection')
+              console.log(error)
+          } else {
+              console.log('Data successfully added to the collection')
+              console.log(data)
+          }
+        })
+      }
+    }
+  })
+
+  res.send('Sucesso')
+})
+
+app.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/dashboard'
+}), function(req, res) {
+  res.send('hey')
 })
 
 app.get('/dashboard', function(req, res, next) {
@@ -147,11 +215,11 @@ app.get('/manage', function(req, res, next) {
 })
 
 app.get('/tokens', function(req, res, next) {
-  res.render('tokens', {title:'Property Tokens'});
+  res.render('tokens', {title:'Property Tokens'})
 })
 
 app.get('/blank', function(req, res, next) {
-  res.render('blank', {title:'Blank page'});
+  res.render('blank', {title:'Blank page'})
 })
 
 app.post('/create-property', (req, res) => {
@@ -191,7 +259,7 @@ app.post('/create-property', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.send('Error! Page not found')
+  res.render('404', {title:'Page not found'})
 })
 // routing changes --- end
 
@@ -209,6 +277,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+})
 
-module.exports = app;
+module.exports = app
