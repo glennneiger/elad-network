@@ -21,28 +21,6 @@ window.addEventListener('load', async () => {
         web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/d81a3501521247ce9a510f4e8317219b"));
         console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
     }
-
-    // web3.eth.getAccounts(function(error, result) {
-    //     if(error) {
-    //         console.log(error);
-    //     } else {
-    //         accountAddress = result;
-    //         $('#userAddress').text(accountAddress);
-
-    //         let acc = accountAddress+'';
-    //         acc = acc.substring(2, acc.length)
-
-    //         // get account balance in Ether
-    //         web3.eth.getBalance(acc, function(error, res) {
-    //             if(error) {
-    //                 console.log(error);
-    //             } else {
-    //                 balance = res;
-    //                 $('#ETHbalance').text( web3.fromWei(balance, 'ether').toFixed(4) + ' ETH');
-    //             }
-    //         });
-    //     }
-    // })
 })
 
 

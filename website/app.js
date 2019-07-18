@@ -98,7 +98,27 @@ app.use(function (req, res, next) {
 
 // routing changes --- beginning 
 app.get('/', function(req, res, next) {
-  res.render('index', {title:'Dashboard'});
+  Property.countDocuments({}, (error, num) => {
+    if(error) {
+      console.log('There was a problem retrieving the properties from the database')
+      console.log(error)
+    } else {
+      console.log('Number of properties: ' + num)
+    }
+  })
+
+  Property.find({}, function(error, properties) {
+      if(error) {
+          console.log('There was a problem retrieving the properties from the database')
+          console.log(error)
+      } else {
+          res.render('index', {
+              propertiesList: properties,
+              title: 'Properties'
+          })
+      }
+  })
+  // res.render('index', {title:'Dashboard'})
 })
 
 app.get('/login', function(req, res, next) {
