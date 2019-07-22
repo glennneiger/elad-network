@@ -11,12 +11,21 @@
 
           <div class="card shadow">
 
+            <!--
             <div class="card-header border-0">
               <h1 lass="mb-0"><span id="nome"><%= propertyName %></span></h1>
             </div>
+            -->
             
             <div class="row mx-3">
               <div class="col my-3">
+                <h1 lass="mb-0"><span id="nome"><%= propertyName %></span></h1>
+                <h2 style="color:#000099">$<%= propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %></h2>
+                <p>
+                  <img src="../uploads/pin.png" class="img-fluid" alt="Responsive image" width="13px">
+                  <%= propertyAddress %>
+                </p>
+                <hr style="width: 100%; color:gray; height: 0px; background-color:white" />
                 <p><%= propertyDescription %></p>
                 <br>
                 <table class="table align-items-center">
@@ -37,12 +46,12 @@
                     </tr>
                 </table>
                 <br>
-                <button type="button" class="btn btn-primary" href="#" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-success" href="#" data-toggle="modal" data-target="#exampleModal">
                   Buy <%= tokenSymbol %> tokens
                 </button>
               </div>
 
-              <div class="col">
+              <div class="col my-auto">
                 <img src="../uploads/<%= propertyImage %>" class="img-fluid" alt="Responsive image" width="600px">
               </div>
             </div>

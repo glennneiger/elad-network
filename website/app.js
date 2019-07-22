@@ -22,7 +22,8 @@ const Property = require('./models/property')
 const User = require('./models/user')
 
 // database name: elad-network
-mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
+// mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
+mongoose.connect('mongodb://localhost:27017/elad-network', {
   useNewUrlParser: true
 }, function(error) {
   if(error) {
@@ -36,10 +37,6 @@ mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network'
 function hashPassword(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
-
-// function comparePassword(password, hash) {
-//   return bcrypt.compareSync(password, hash)
-// }
 
 var app = express();
 
@@ -213,11 +210,11 @@ app.get('/properties/:id', function(req, res) {
 
       res.render('property', {
         propertyName: foundProperty.propertyName,
+        propertyPrice: foundProperty.propertyPrice,
+        propertyAddress: foundProperty.propertyAddress,
         tokenSymbol: foundProperty.tokenSymbol,
         totalSupply: foundProperty.totalSupply,
         ethPrice: foundProperty.ethPrice,
-        eladPrice: foundProperty.eladPrice,
-        fallbackAddress: foundProperty.fallbackAddress,
         propertyDescription: foundProperty.propertyDescription,
         propertyImage: foundProperty.propertyImage,
         title: 'Property'
@@ -258,11 +255,11 @@ app.post('/create-property', (req, res) => {
 
   Property.create({
       propertyName: data.propertyName,
+      propertyPrice: data.propertyPrice,
+      propertyAddress: data.propertyAddress,
       tokenSymbol: data.tokenSymbol,
       totalSupply: data.totalSupply,
       ethPrice: data.ethPrice,
-      eladPrice: data.eladPrice,
-      fallbackAddress: data.fallbackAddress,
       propertyDescription: data.propertyDescription,
       propertyImage: imageFile.name
   }, function(error, data) {
@@ -271,7 +268,7 @@ app.post('/create-property', (req, res) => {
           console.log(error)
       } else {
           console.log('Data successfully added to the collection')
-          // console.log(data)
+          console.log(data)
       }
   })
 

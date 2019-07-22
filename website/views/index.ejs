@@ -621,7 +621,7 @@
                                         <!-- PROPERTY CARD STARTS HERE -->
                                         <div class="col-xs-12 col-sm-6 col-md-4 col isoCol sale">
                                             <!-- postColumn -->
-                                            <article class="postColumn hasOver bgWhite" style="max-height:500px; min-height:500px">
+                                            <article class="postColumn hasOver bgWhite" style="max-height:450px; min-height:450px">
                                                 <div class="aligncenter">
                                                     <!-- postColumnImageSlider -->
                                                     <div class="slick-carousel slickSlider postColumnImageSlider">
@@ -660,9 +660,10 @@
                                                 <a href="/properties/<%=propertiesList[i]._id%>">
                                                     <span class="btn btnSmall btn-success text-capitalize">See property</span>
                                                 </a>
-                                                <h3 class="fontNeuron fwSemi"><span class="textSecondary">$ 490,000</span> <span
+                                                <h3 class="fontNeuron fwSemi"><span class="textSecondary">$ <%= propertiesList[i].propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %></span> <span
                                                     class="textUnit fwNormal">/ monthly</span></h3>
                                                 <!-- postColumnFoot -->
+                                                <!--
                                                 <footer class="postColumnFoot">
                                                     <ul class="list-unstyled">
                                                         <li>
@@ -683,6 +684,7 @@
                                                         </li>
                                                     </ul>
                                                 </footer>
+                                                -->
                                             </article>
                                         </div>
                                     <% } %>

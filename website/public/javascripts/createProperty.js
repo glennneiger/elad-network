@@ -87,7 +87,9 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-var factoryAddress = "0xcd73948b5775451057aa2665958bd6e57ab442af"
+// 0xFD295cB70745e7928DC56aD2E9d15a7f4d50991A (localhost)
+// var factoryAddress = "0xcd73948b5775451057aa2665958bd6e57ab442af" // kovan
+var factoryAddress = "0x2d42d87bfb8fe08f7a2c2ecc33762fef538ef871"
 
 var factory = factoryABI.at(factoryAddress)
 
@@ -119,12 +121,12 @@ function createToken(symbol, name, supply, priceEth, owner) {
 
 // watch for contract events since last block
 // what we want here is the next event emitted, which is the contract creation
-factory.allEvents({
-    fromBlock: latest
-}, (error, event) => {
-    if (true) {
-		console.log(event.args._contract);
-		window.alert('Token created!')
-		window.location = "/properties";
-    }
-});
+// factory.allEvents({
+//     fromBlock: latest
+// }, (error, event) => {
+//     if (true) {
+// 		console.log(event.args._contract);
+// 		window.alert('Token created!')
+// 		window.location = "/properties";
+//     }
+// });
