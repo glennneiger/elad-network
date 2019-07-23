@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- set the page title -->
-        <title>ELAD Network - Blockchain Based Real Estate Specialists</title>
+        <title>ELAD Network</title>
         <!-- include google roboto font cdn link -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
         <!-- include the site bootstrap stylesheet -->
@@ -267,336 +267,35 @@
                     <main>
                         <!-- introSlider -->
                         <section class="slick-fade slickSlider introSlider">
-                            <div>
+                            <% for(let i = 0; i < propertiesList.length; i++) { %>
+                                <div>
                                 <!-- introSlide -->
-                                <article class="introSlide bgCover" style="background-image: url(../assets/external/images/img01.jpg);">
-                                    <div class="container introSlideHolder">
-                                        <div class="align">
-                                            <!-- introSlideCaption -->
-                                            <div class="introSlideCaption">
-                                                <h1 class="text-uppercase fontNeuron">Modern Family Home</h1>
-                                                <div class="introSlideCaptionHolder">
-                                                    <address class="text-primary">
-                                                        <span class="icn"><i class="fi flaticon-pin-1"></i></span>
-                                                        <p>PO Box 16122 Collins Street West Victoria 8007 Australia</p>
-                                                    </address>
-                                                    <h2 class="fontNeuron">$ 490,000 <strong class="fwNormal textUnit">/ 75 Blocks Sold</strong>
-                                                    </h2>
-                                                    <div class="btnsWrap">
-                                                        <a href="#" class="btn btn-success btnSmall">Available</a>
-                                                        <a href="#" class="btn btn-info btnSmall">Featured</a>
+                                    <article class="introSlide bgCover" style="background-image: url(../uploads/<%= propertiesList[i].propertyImage %>);">
+                                        <div class="container introSlideHolder">
+                                            <div class="align">
+                                                <!-- introSlideCaption -->
+                                                <div class="introSlideCaption">
+                                                    <h1 class="text-uppercase fontNeuron"><%= propertiesList[i].propertyName %></h1>
+                                                    <div class="introSlideCaptionHolder">
+                                                        <address class="text-primary">
+                                                            <span class="icn"><i class="fi flaticon-pin-1"></i></span>
+                                                            <p><%= propertiesList[i].propertyAddress %></p>
+                                                        </address>
+                                                        <h2 class="fontNeuron">
+                                                            $ <%= propertiesList[i].propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %> <strong class="fwNormal textUnit">/ x Tokens Sold</strong>
+                                                        </h2>
+                                                        <div class="btnsWrap">
+                                                            <a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-success btnSmall">See property</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div>
-                                <!-- introSlide -->
-                                <article class="introSlide bgCover" style="background-image: url(../assets/external/images/img02.jpg);">
-                                    <div class="container introSlideHolder">
-                                        <div class="align">
-                                            <!-- introSlideCaption -->
-                                            <div class="introSlideCaption">
-                                                <h1 class="text-uppercase fontNeuron">Mordern Home</h1>
-                                                <div class="introSlideCaptionHolder">
-                                                    <address class="text-primary">
-                                                        <span class="icn"><i class="fi flaticon-pin-1"></i></span>
-                                                        <p>PO Box 16122 Collins Street West Victoria 8007 Australia</p>
-                                                    </address>
-                                                    <h2 class="fontNeuron">$ 400,000 <strong class="fwNormal textUnit">/ monthly</strong></h2>
-                                                    <div class="btnsWrap">
-                                                        <a href="#" class="btn btn-success btnSmall">For Sale</a>
-                                                        <a href="#" class="btn btn-info btnSmall">Featured</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                            <div>
-                                <!-- introSlide -->
-                                <article class="introSlide bgCover" style="background-image: url(../assets/external/images/img03.jpg);">
-                                    <div class="container introSlideHolder">
-                                        <div class="align">
-                                            <!-- introSlideCaption -->
-                                            <div class="introSlideCaption">
-                                                <h1 class="text-uppercase fontNeuron">Latest Family Home</h1>
-                                                <div class="introSlideCaptionHolder">
-                                                    <address class="text-primary">
-                                                        <span class="icn"><i class="fi flaticon-pin-1"></i></span>
-                                                        <p>PO Box 16122 Collins Street West Victoria 8007 Australia</p>
-                                                    </address>
-                                                    <h2 class="fontNeuron">$ 390,000 <strong class="fwNormal textUnit">/ monthly</strong></h2>
-                                                    <div class="btnsWrap">
-                                                        <a href="#" class="btn btn-success btnSmall">For Sale</a>
-                                                        <a href="#" class="btn btn-info btnSmall">Featured</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
+                                    </article>
+                                </div>
+                            <% } %>
                         </section>
-                        <!-- findFormBlock -->
-                        <form action="#" class="bgWhite findFormBlock hasShadow">
-                            <div class="container">
-                                <h2 class="fontNeuron">FIND A <span class="text-info">PROPERTY</span></h2>
-                                <hr class="sep elemenBlock">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control elemenBlock" placeholder="Enter Your Keyword&hellip;">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control elemenBlock" placeholder="Location">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <select data-placeholder="All Property Types" class="chosen-select">
-                                                <option value="1">For Rent</option>
-                                                <option value="2">For Sale</option>
-                                                <option value="3">House</option>
-                                                <option value="4">Property</option>
-                                                <option value="5">Real Estate</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <select data-placeholder="All Property Types" class="chosen-select">
-                                                <option value="1">For Rent</option>
-                                                <option value="2">For Sale</option>
-                                                <option value="3">House</option>
-                                                <option value="4">Property</option>
-                                                <option value="5">Real Estate</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <div class="price-wrapper">
-                                                Price Range: From <b class="startValue">$500</b> to <b
-                                                    class="endValue">$500,000</b><!-- Filter by price interval: <b>€ 10</b><b>€ 1000</b> -->
-                                            </div>
-                                            <input id="price-range" type="text" class="span2" value="" data-slider-min="500"
-                                                data-slider-max="500000" data-slider-step="10" data-slider-value="[100000,400000]" />
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <div class="form-group">
-                                                    <select data-placeholder="Beds" class="chosen-select">
-                                                        <option value="1">Beds</option>
-                                                        <option value="1">Beds</option>
-                                                        <option value="1">Beds</option>
-                                                        <option value="1">Beds</option>
-                                                        <option value="1">Beds</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <div class="form-group">
-                                                    <select data-placeholder="Baths" class="chosen-select">
-                                                        <option value="1">Baths</option>
-                                                        <option value="1">Baths</option>
-                                                        <option value="1">Baths</option>
-                                                        <option value="1">Baths</option>
-                                                        <option value="1">Baths</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control elemenBlock" placeholder="Area Min... (Sq Ft)">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <select data-placeholder="Parking" class="chosen-select">
-                                                <option value="1">Parking</option>
-                                                <option value="1">Parking</option>
-                                                <option value="1">Parking</option>
-                                                <option value="1">Parking</option>
-                                                <option value="1">Parking</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- orderRow -->
-                                <div class="row orderRow">
-                                    <div class="col-xs-12 col-sm-3 order1">
-                                        <!-- otherFeaturesOpener -->
-                                        <a class="btnPlus otherFeaturesOpener text-capitalize" role="button" data-toggle="collapse"
-                                            href="#otherFeaturescollapse" aria-expanded="false" aria-controls="otherFeaturescollapse">
-                                        <i class="fas btnIcn fa-plus-circle text-info opener"></i>
-                                        <i class="fas fa-minus-circle closer btnIcn text-info"></i>
-                                        Others Features
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-12 order3">
-                                        <!-- otherFeaturesCollapse -->
-                                        <div class="collapse otherFeaturesCollapse" id="otherFeaturescollapse">
-                                            <!-- checkList -->
-                                            <ul class="list-unstyled checkList text-primary">
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Air conditioning</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Cofee pot</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Fan</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Hi-fi</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Balcony</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Computer</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Fridge</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Internet</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Bedding</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Cot</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Grill</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Iron</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Cable TV</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Dishwasher</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Hairdryer</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Juicer</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Cleaning after exit</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">DVD</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Heating</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="fwNormal customLabelCheck">
-                                                    <input type="checkbox" class="customFormInputReset">
-                                                    <span class="fakeCheckbox"></span>
-                                                    <span class="fakeLabel">Lift</span>
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-offset-6 col-sm-3 order2">
-                                        <button type="button" class="btn btnSecondary text-uppercase fontNeuron pull-right">SEARCH</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        
                         <!-- latestPostsBlock -->
                         <section class="latestPostsBlock container">
                             <!-- rowHead -->
@@ -605,14 +304,15 @@
                                     <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">LATEST</span> <span
                                         class="textSecondary">PROPERTIES</span></h1>
                                 </div>
+                                <!--
                                 <div class="col-xs-12 col-sm-7">
-                                    <!-- postsFiltersList -->
                                     <ul class="list-unstyled postsFiltersList text-capitalize text-center isoFiltersList">
                                         <li class="active"><a href="#">All</a></li>
                                         <li><a href="#" data-filter=".rent">For Rent</a></li>
                                         <li><a href="#" data-filter=".sale">For Sale</a></li>
                                     </ul>
                                 </div>
+                                -->
                             </header>
                             <!-- isoContentHolder -->
                             <div class="isoContentHolder">
@@ -634,25 +334,8 @@
                                                         </div>
                                                         <!-- other images of the property here -->
                                                     </div>
-                                                    <!-- postHoverLinskList -->
-                                                    <ul class="list-unstyled postHoverLinskList">
-                                                        <li><a href="#"><i class="fi flaticon-repeat"></i></a></li>
-                                                        <li class="hasOver">
-                                                            <a href="#"><i class="fi flaticon-share"></i></a>
-                                                            <!-- postColumnSocial -->
-                                                            <ul class="list-unstyled socialNetworks postColumnSocial">
-                                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                                                <li><a href="#"><i class="fab fa-google"></i></a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- linkToFavourite -->
-                                                    <a href="#" class="linkToFavourite roundedCircle bg-primary textWhite icnHeartBeatAnim"><i
-                                                        class="far fa-heart"></i></a>
                                                 </div>
-                                                <h2 class="fontNeuron text-capitalize"><a href="properties-single1.html"><%= propertiesList[i].propertyName %></a></h2>
+                                                <h2 class="fontNeuron text-capitalize"><a href="/properties/<%=propertiesList[i]._id%>"><%= propertiesList[i].propertyName %></a></h2>
                                                 <address>
                                                     <span class="icn"><i class="fi flaticon-pin-1"></i></span>
                                                     <p><%= propertiesList[i].propertyAddress %></p>
@@ -665,28 +348,6 @@
                                                      <span class="textUnit fwNormal">/ monthly</span>
                                                 </h3>
                                                 <!-- postColumnFoot -->
-                                                <!--
-                                                <footer class="postColumnFoot">
-                                                    <ul class="list-unstyled">
-                                                        <li>
-                                                            <strong class="fwNormal elemenBlock text-primary">Area</strong>
-                                                            <strong class="fwNormal elemenBlock">2100 m2</strong>
-                                                        </li>
-                                                        <li>
-                                                            <strong class="fwNormal elemenBlock text-primary">Beds</strong>
-                                                            <strong class="fwNormal elemenBlock">3</strong>
-                                                        </li>
-                                                        <li>
-                                                            <strong class="fwNormal elemenBlock text-primary">Baths</strong>
-                                                            <strong class="fwNormal elemenBlock">2</strong>
-                                                        </li>
-                                                        <li>
-                                                            <strong class="fwNormal elemenBlock text-primary">Garages</strong>
-                                                            <strong class="fwNormal elemenBlock">1</strong>
-                                                        </li>
-                                                    </ul>
-                                                </footer>
-                                                -->
                                             </article>
                                         </div>
                                     <% } %>
@@ -694,8 +355,7 @@
                                 </div>
                             </div>
                             <div class="row text-center btnHolder">
-                                <a href="properties-detial.html" class="btn btn-primary btnPrimaryOutline text-capitalize fontNeuron">Show
-                                More Property</a>
+                                <a href="/properties" class="btn btn-primary btnPrimaryOutline text-capitalize fontNeuron">Show More Properties</a>
                             </div>
                         </section>
                         <!-- mostPostsBlock -->

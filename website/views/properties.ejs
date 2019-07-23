@@ -16,14 +16,19 @@
               <div class="row">
                 <% for(let i = 0; i < propertiesList.length; i++) { %>
                   <div class="col-md-4 p-2">
-                    <div class="card bg-white" style="width: 18rem;" style="height: 300px">
+                    <div class="card bg-white" style="width: 20rem; height:400px; max-height:450px; min-height:450px">
                       <img class="card-img-top" src="../uploads/<%= propertiesList[i].propertyImage %>" alt="Card image cap">
                       <div class="card-body">
-                        <!--<h2 class="card-title" id="propertyName"><%= propertiesList[i].propertyName %></h2>-->
                         <h2 class="card-title"><%= propertiesList[i].propertyName %></h2>
                         <span id="propertyAddress"></span>
-                        <p class="card-text"><%= propertiesList[i].propertyDescription%></p>
-                        <a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-primary">See property</a>
+                        <!--<p class="card-text"><%= propertiesList[i].propertyDescription%></p>-->
+                        <p>
+                          <img src="../uploads/pin.png" class="img-fluid" alt="Responsive image" width="13px">&nbsp;
+                          <%= propertiesList[i].propertyAddress %>
+                        </p>
+                        <h1 style="color:#000099">$<%= propertiesList[i].propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %></h1>
+                          <a class="btn btn-success align-bottom" href="/properties/<%=propertiesList[i]._id%>">See property</a>
+                        <!--<a href="/properties/<%=propertiesList[i]._id%>" class="btn btn-success">See property</a>-->
                       </div>
                     </div>
                   </div>
