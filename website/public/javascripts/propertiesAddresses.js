@@ -84,8 +84,8 @@ var factoryABI = web3.eth.contract([
 	}
 ])
 
-// var factoryAddress = "0xcd73948b5775451057aa2665958bd6e57ab442af" // kovan
-var factoryAddress = "0x2d42d87bfb8fe08f7a2c2ecc33762fef538ef871"
+var factoryAddress = "0x50f16ed6f353668c94f7be1ac7b802be08f453f5" // kovan
+// var factoryAddress = "0x2d42d87bfb8fe08f7a2c2ecc33762fef538ef871" // local blockchain
 
 var factory = factoryABI.at(factoryAddress)
 

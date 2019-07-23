@@ -655,13 +655,15 @@
                                                 <h2 class="fontNeuron text-capitalize"><a href="properties-single1.html"><%= propertiesList[i].propertyName %></a></h2>
                                                 <address>
                                                     <span class="icn"><i class="fi flaticon-pin-1"></i></span>
-                                                    <p>The Village, Jersey City, NJ 07302, USA </p>
+                                                    <p><%= propertiesList[i].propertyAddress %></p>
                                                 </address>
                                                 <a href="/properties/<%=propertiesList[i]._id%>">
                                                     <span class="btn btnSmall btn-success text-capitalize">See property</span>
                                                 </a>
-                                                <h3 class="fontNeuron fwSemi"><span class="textSecondary">$ <%= propertiesList[i].propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %></span> <span
-                                                    class="textUnit fwNormal">/ monthly</span></h3>
+                                                <h3 class="fontNeuron fwSemi"><span class="textSecondary">
+                                                    $ <%= propertiesList[i].propertyPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') %></span>
+                                                     <span class="textUnit fwNormal">/ monthly</span>
+                                                </h3>
                                                 <!-- postColumnFoot -->
                                                 <!--
                                                 <footer class="postColumnFoot">
