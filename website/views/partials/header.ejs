@@ -40,9 +40,9 @@
             <li class="nav-item"><a class="nav-link text-white" href="/dashboard"><i class="ni ni-chart-pie-35 text-primary"></i>My Investments</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="/properties"><i class="ni ni-building text-success"></i>Properties</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="/tokens"><i class="ni ni-money-coins text-yellow"></i>Property Tokens</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="/create"><i class="ni ni-fat-add text-blue"></i>Create property</a></li>
-            <!--<li class="nav-item"><a class="nav-link text-white" href="/manage"><i class="ni ni-settings text-white"></i>Manage my properties</a></li>-->
-            <!--<li class="nav-item"><a class="nav-link" href="/dashboard/logout"><i class="ni ni-door-3 text-orange"></i> Logout</a></li>-->
+            <% if(user == 'admin') { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/create"><i class="ni ni-fat-add text-blue"></i>Create property</a></li>
+            <% } %>
           </ul>
           <!-- Divider-->
           <hr class="my-3">

@@ -37,6 +37,10 @@ function hashPassword(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
 
+function comparePassword(password, hash) {
+    return bcrypt.compareSync(password, hash)
+}
+
 var app = express();
 
 // view engine setup
@@ -60,7 +64,7 @@ app.use(session({
   // saveUninitialized: true,
   // resave: true
   secret: 'thesecret',
-  saveUninitialized: false,
+  saveUninitialized: true,
   resave: false
 }))
 
@@ -94,6 +98,11 @@ app.use(function (req, res, next) {
 
 // routing changes --- beginning 
 app.get('/', function(req, res, next) {
+  if(req.session.username) {
+    console.log('Achamos a sessão em index!')
+    console.log(req.session.username)
+  }
+
   Property.countDocuments({}, (error, num) => {
     if(error) {
       console.log('There was a problem retrieving the properties from the database')
@@ -121,12 +130,16 @@ app.get('/login', function(req, res, next) {
   res.render('login', {title:'Login'});
 })
 
+app.get('/logout', function(req, res, next) {
+  req.session.username = null
+  res.render('/', {title:'Logout'});
+})
+
 app.get('/signup', function(req, res, next) {
   res.render('signup', {title:'Signup'})
 })
 
-// this is actually app.post('/signup')
-app.post('/signup', (req, res) => {
+app.post('/signup', function(req, res) {
   var data = req.body
   
   var username = data.uname
@@ -155,26 +168,75 @@ app.post('/signup', (req, res) => {
           } else {
               console.log('Data successfully added to the collection:')
               console.log(data)
+              res.render('login', {title:'Login'});
           }
         })
       }
     }
   })
-  res.send('Sucesso')
+  // res.send('Sucesso')
 })
 
-app.post('/login', passport.authenticate('local', {
-  failureRedirect: '/login',
-  successRedirect: '/dashboard'
-}), function(req, res) {
-  res.send('hey')
+// app.post('/login', passport.authenticate('local', {
+//   failureRedirect: '/login',
+//   successRedirect: '/dashboard'
+// }), function(req, res) {
+//   res.send('hey')
+// })
+
+app.post('/login', function(req, res) {
+  console.log('Session:')
+  console.log(req.session)
+
+  var data = req.body
+  
+  var username = data.uname
+  var password = data.passwd
+
+  User.findOne({
+    username: username
+  }, function(error, doc) {
+    if(error) {
+      console.log('There was an error retrieving user from database')
+      console.log(error)
+    } else {
+      if(doc) {
+        // user found
+        console.log('User found:')
+        console.log(doc.username)
+        if(comparePassword(password, doc.password)) {
+          console.log('Password is valid! Login successful!')
+          req.session.username = doc.username
+          res.render('dashboard', {
+            title:'Dashboard',
+            user: username
+          })
+        } else {
+          console.log('Password ' + password + ' is not valid!')
+          res.render('login', {title:'Login'})
+        }
+      } else {
+        console.log('Document not present in database')
+      }
+    }
+  })
 })
 
 app.get('/dashboard', function(req, res, next) {
-  res.render('dashboard', {title:'Dashboard'});
+  if(req.session.username) {
+    console.log('Achamos a sessão em dashboard!')
+    console.log(req.session.username)
+  }
+
+  res.render('dashboard', {title:'Dashboard', user: req.session.username});
 })
 
 app.get('/properties', function(req, res) {
+  if(req.session.username) {
+    console.log('Achamos a sessão em properties!')
+    console.log(req.session.username)
+  }
+
   Property.countDocuments({}, (error, num) => {
     if(error) {
       console.log('There was a problem retrieving the properties from the database')
@@ -191,13 +253,19 @@ app.get('/properties', function(req, res) {
       } else {
           res.render('properties', {
               propertiesList: properties,
-              title: 'Properties'
+              title: 'Properties',
+              user: req.session.username
           })
       }
   })
 })
 
 app.get('/properties/:id', function(req, res) {
+  if(req.session.username) {
+    console.log('Achamos a sessão em properties/' + req.params.id + '!')
+    console.log(req.session.username)
+  }
+
   var id = req.params.id
 
   Property.findById(id, function(error, foundProperty) {
@@ -216,14 +284,24 @@ app.get('/properties/:id', function(req, res) {
         ethPrice: foundProperty.ethPrice,
         propertyDescription: foundProperty.propertyDescription,
         propertyImage: foundProperty.propertyImage,
-        title: 'Property'
+        title: 'Property',
+        user: req.session.username
       })
     }
   })
 })
 
 app.get('/create', function(req, res, next) {
-  res.render('create', { title:'Create Property' });
+  if(req.session.username) {
+    console.log('Achamos a sessão em create!')
+    console.log(req.session.username)
+  }
+
+  if(req.session.username != 'admin') {
+    res.render('dashboard', { title:'Dashboard', user: req.session.username });
+  } else {
+    res.render('create', { title:'Create Property', user: req.session.username });
+  }
 })
 
 app.get('/manage', function(req, res, next) {
@@ -231,7 +309,12 @@ app.get('/manage', function(req, res, next) {
 })
 
 app.get('/tokens', function(req, res, next) {
-  res.render('tokens', {title:'Property Tokens'})
+  if(req.session.username) {
+    console.log('Achamos a sessão em tokens!')
+    console.log(req.session.username)
+  }
+
+  res.render('tokens', {title:'Property Tokens', user: req.session.username})
 })
 
 app.get('/blank', function(req, res, next) {
@@ -239,6 +322,11 @@ app.get('/blank', function(req, res, next) {
 })
 
 app.post('/create-property', (req, res) => {
+  if(req.session.username) {
+    console.log('Achamos a sessão em create-property!')
+    console.log(req.session.username)
+  }
+
   var data = req.body
 
   var imageFile = req.files.propertyImage
