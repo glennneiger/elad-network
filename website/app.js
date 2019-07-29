@@ -13,7 +13,6 @@ var LocalStrategy = require('passport-local').Strategy
 var flash = require('connect-flash')
 // var bcrypt = require('bcryptjs')
 var bcrypt = require('bcrypt-nodejs')
-// var mongo = require('mongodb')
 const mongoose = require('mongoose') // ok
 const fileUpload = require('express-fileupload')
 
@@ -126,7 +125,8 @@ app.get('/signup', function(req, res, next) {
   res.render('signup', {title:'Signup'})
 })
 
-app.post('/teste', (req, res) => {
+// this is actually app.post('/signup')
+app.post('/signup', (req, res) => {
   var data = req.body
   
   var username = data.uname
@@ -153,14 +153,13 @@ app.post('/teste', (req, res) => {
               console.log('There was a problem adding the user to the collection')
               console.log(error)
           } else {
-              console.log('Data successfully added to the collection')
+              console.log('Data successfully added to the collection:')
               console.log(data)
           }
         })
       }
     }
   })
-
   res.send('Sucesso')
 })
 

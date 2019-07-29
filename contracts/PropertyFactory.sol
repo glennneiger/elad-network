@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0 <0.6.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/IERC20.sol";
@@ -8,22 +8,19 @@ contract PropertyToken is IERC20 {
 
     string public symbol;
     string public name;
-    string public id;
     uint8 public decimals;
     uint256 private _totalSupply;
     uint256 public tokensBought;
-    uint256 public tokenEthPrice;
     address payable public owner;
 
     mapping(address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
 
-    constructor(string memory _symbol, string memory _name, uint256 _initialSupply, uint256 _tokenEthPrice, address payable _owner) public {
+    constructor(string memory _symbol, string memory _name, uint256 _initialSupply, address payable _owner) public {
         symbol = _symbol;
         name = _name;
         decimals = 0;
         _totalSupply = _initialSupply * 10**uint(decimals);
-        tokenEthPrice = _tokenEthPrice * 1 ether;
         owner = _owner;
         _balances[_owner] = _totalSupply;
         emit Transfer(address(0), _owner, _totalSupply);
@@ -137,33 +134,61 @@ contract PropertyToken is IERC20 {
         emit Approval(tokenOwner, spender, value);
     }
     
+    /**
+     * @dev Implements the buy property token functionality.
+     *
+     * Receives ether from investor, moves tokens from owner to investor.
+     * Ether received is transferred to contract owner.
+     *
+     * Emits a `Transfer` event.
+     *
+     * Requirements:
+     *
+     * - cannot be called by contract owner.
+     * - amount of ether should be at least 1 Finney.
+     * - amount of tokens to buy must be less or equal contract owner's balance.
+     */
     function buyTokens() public payable {
-        require(msg.sender != owner);
+        require(msg.sender != owner, "Caller can't be contract owner");
         
-        uint256 exchangeRate = 1;
+        uint256 exchangeRate = 1000;
         uint256 tokens = exchangeRate.mul(msg.value).div(1 ether);
         
-        require(tokens > 0);
-        require(tokens <= _totalSupply);
+        require(tokens > 0, "Amount of ether sent less than 1 Finney");
+        require(tokens <= _balances[owner], "Contract owner doesn't have enough balance");
         
         _transfer(owner, msg.sender, tokens);
         owner.transfer(msg.value);
         
         tokensBought += tokens;
+        
+        emit Transfer(owner, msg.sender, tokens);
     }
     
+    /**
+     * @dev Returns token balance of calling account
+     */
     function myBalance() public view returns (uint balance) {
         return _balances[msg.sender];
     }
     
+    /**
+     * @dev Returns available amount of tokens to buy
+     */
     function tokensLeft() public view returns(uint256) {
         return totalSupply() - tokensBought;
     }
     
+    /**
+     * @dev Returns some property details
+     */
     function propertyDetails() public view returns(string memory, string memory, uint256, uint256, uint256) {
         return (name, symbol, _totalSupply, tokensBought, tokensLeft());
     }
     
+    /**
+     * @dev Doesn't accept ether
+     */
     function () external payable {
         revert();
     }
@@ -176,8 +201,8 @@ contract PropertyTokenFactory {
     address[] public tokens;
     uint256 private numberOfTokens;
 
-    function createProperty(string memory _symbol, string memory _name, uint256 _supplyOfTokens, uint256 _tokenEthPrice, address payable _owner) public returns (address) {
-        PropertyToken tokenContract = new PropertyToken(_symbol, _name, _supplyOfTokens, _tokenEthPrice, _owner);
+    function createProperty(string memory _symbol, string memory _name, uint256 _supplyOfTokens, address payable _owner) public returns (address) {
+        PropertyToken tokenContract = new PropertyToken(_symbol, _name, _supplyOfTokens, _owner);
         
         tokens.push(address(tokenContract));
         numberOfTokens++;

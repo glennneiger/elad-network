@@ -3,53 +3,6 @@ var account = web3.toChecksumAddress(web3.eth.accounts[0])
 // Factory Contract
 var factoryABI = web3.eth.contract([
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_symbol",
-				"type": "string"
-			},
-			{
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"name": "_supplyOfTokens",
-				"type": "uint256"
-			},
-			{
-				"name": "_tokenEthPrice",
-				"type": "uint256"
-			},
-			{
-				"name": "_owner",
-				"type": "address"
-			}
-		],
-		"name": "createProperty",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_contract",
-				"type": "address"
-			}
-		],
-		"name": "NewToken",
-		"type": "event"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
@@ -81,11 +34,55 @@ var factoryABI = web3.eth.contract([
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_symbol",
+				"type": "string"
+			},
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_supplyOfTokens",
+				"type": "uint256"
+			},
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "createProperty",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_contract",
+				"type": "address"
+			}
+		],
+		"name": "NewToken",
+		"type": "event"
 	}
 ])
 
-var factoryAddress = "0x50f16ed6f353668c94f7be1ac7b802be08f453f5" // kovan
+// var factoryAddress = "0x50f16ed6f353668c94f7be1ac7b802be08f453f5" // kovan
 // var factoryAddress = "0x2d42d87bfb8fe08f7a2c2ecc33762fef538ef871" // local blockchain
+var factoryAddress = "0x1b29c2c052818b77f4fcb8556baa038626009a68" // ropsten
 
 var factory = factoryABI.at(factoryAddress)
 
@@ -300,20 +297,6 @@ var propertyTokenABI = web3.eth.contract([
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "id",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "tokensLeft",
 		"outputs": [
 			{
@@ -331,7 +314,7 @@ var propertyTokenABI = web3.eth.contract([
 		"name": "myBalance",
 		"outputs": [
 			{
-				"name": "balance",
+				"name": "",
 				"type": "uint256"
 			}
 		],
@@ -372,20 +355,6 @@ var propertyTokenABI = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "tokenEthPrice",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"name": "_symbol",
@@ -397,10 +366,6 @@ var propertyTokenABI = web3.eth.contract([
 			},
 			{
 				"name": "_initialSupply",
-				"type": "uint256"
-			},
-			{
-				"name": "_tokenEthPrice",
 				"type": "uint256"
 			},
 			{
@@ -468,8 +433,6 @@ var tokens = []
 
 // get tokens addresses
 function loadPropertyTokens() {
-	// var table = document.getElementById("tokensTable")
-
     // first we get number of tokens created
     factory.totalTokens(function(error, number) {
 
@@ -504,7 +467,8 @@ function loadPropertyTokens() {
 					cell1.innerHTML = totalSupply
 					cell2.innerHTML = tokensBought
 					cell3.innerHTML = tokensLeft
-					cell4.innerHTML = "<a href=\"https://kovan.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
+					// cell4.innerHTML = "<a href=\"https://kovan.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
+					cell4.innerHTML = "<a href=\"https://ropsten.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
                 })
             })
         }
