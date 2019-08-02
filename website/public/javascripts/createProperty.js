@@ -156,7 +156,7 @@ function createToken(symbol, name, supply, owner) {
 		} else {
 			console.log('tx hash:')
 			console.log(txHash);
-			alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
+			// alert("Property being created, please wait to be redirected. This process can take up to a few minutes.");
 		}
     })
 }

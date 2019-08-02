@@ -21,8 +21,8 @@ const Property = require('./models/property')
 const User = require('./models/user')
 
 // database name: elad-network
-mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
-// mongoose.connect('mongodb://localhost:27017/elad-network', {
+// mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
+mongoose.connect('mongodb://localhost:27017/elad-network', {
   useNewUrlParser: true
 }, function(error) {
   if(error) {
@@ -139,42 +139,8 @@ app.get('/signup', function(req, res, next) {
   res.render('signup', {title:'Signup'})
 })
 
-app.post('/signup', function(req, res) {
-  var data = req.body
-  
-  var username = data.uname
-  var password = data.passwd
-  
-  User.findOne({
-    username: username,
-    password: password
-  }, function(error, doc) {
-    if(error) {
-      console.log('There was a problem retrieving the user from database')
-      console.log(error)
-  } else {
-      if(doc) {
-        console.log('Username already exists')
-      } else {
-        // record new user
-        console.log('New user: ' + username)
-        User.create({
-          username: username,
-          password: hashPassword(password)
-        }, function(error, data) {
-          if(error) {
-              console.log('There was a problem adding the user to the collection')
-              console.log(error)
-          } else {
-              console.log('Data successfully added to the collection:')
-              console.log(data)
-              res.render('login', {title:'Login'});
-          }
-        })
-      }
-    }
-  })
-  // res.send('Sucesso')
+app.get('/success', (req, res) => {
+  res.render('success')
 })
 
 // app.post('/login', passport.authenticate('local', {
@@ -208,18 +174,73 @@ app.post('/login', function(req, res) {
           console.log('Password is valid! Login successful!')
           req.session.username = doc.username
           res.render('dashboard', {
-            title:'Dashboard',
+            title: 'Dashboard',
             user: username
           })
         } else {
           console.log('Password ' + password + ' is not valid!')
-          res.render('login', {title:'Login'})
+          res.render('login', {
+            title: 'Login',
+            msg: 'Wrong password'
+          })
         }
       } else {
         console.log('Document not present in database')
+        res.render('login', {
+          title: 'Login',
+          msg: 'User not found'
+        })
       }
     }
   })
+})
+
+app.post('/signup', function(req, res) {
+  var data = req.body
+  
+  var fullname = data.fname
+  var username = data.uname
+  var password = data.passwd
+  var confirmPassword = data.confirmpasswd
+
+  if(password != confirmPassword) {
+    console.log('Passwords don\'t match')
+    res.render('signup', {
+      title: 'Signup',
+      msg: 'Passwords don\'t match'
+    })
+  } else {
+    User.findOne({
+      username: username//,
+      // password: password
+    }, function(error, doc) {
+      if(error) {
+        console.log('There was a problem retrieving the user from database')
+        console.log(error)
+    } else {
+        if(doc) {
+          console.log('Username already exists')
+        } else {
+          // record new user
+          User.create({
+            fullname: fullname,
+            username: username,
+            password: hashPassword(password)
+          }, function(error, data) {
+            if(error) {
+                console.log('There was a problem adding the user to the collection')
+                console.log(error)
+            } else {
+                console.log('Data successfully added to the collection:')
+                console.log(data)
+                res.render('success', {title:'Successful Login'});
+            }
+          })
+        }
+      }
+    })
+  }
+  
 })
 
 app.get('/dashboard', function(req, res, next) {
@@ -302,6 +323,35 @@ app.get('/create', function(req, res, next) {
   } else {
     res.render('create', { title:'Create Property', user: req.session.username });
   }
+})
+
+app.get('/users', function(req, res) {
+  if(req.session.username) {
+    console.log('Achamos a sessão em users!')
+    console.log(req.session.username)
+  }
+
+  User.countDocuments({}, (error, num) => {
+    if(error) {
+      console.log('There was a problem retrieving the properties from the database')
+      console.log(error)
+    } else {
+      console.log('Number of users: ' + num)
+    }
+  })
+
+  User.find({}, function(error, users) {
+      if(error) {
+          console.log('There was a problem retrieving the properties from the database')
+          console.log(error)
+      } else {
+          res.render('users', {
+              users: users,
+              title: 'Users',
+              user: req.session.username
+          })
+      }
+  })
 })
 
 app.get('/manage', function(req, res, next) {

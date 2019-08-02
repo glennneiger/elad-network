@@ -4,6 +4,10 @@ var mongoose = require('mongoose')
 // var schema = mongoose.Schema
 
 var userSchema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        require: true
+    },
     username: {
         type: String,
         require: true

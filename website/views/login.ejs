@@ -20,6 +20,14 @@
                         <h1>Login</h1>
                     </div>
                     <form action="/login" method="POST">
+                        <% if(typeof msg != 'undefined') { %>
+                            <div class="text-left">
+                                <span id="wrongPassword" style="color:red; font-size:14px">
+                                    <%= msg %>
+                                    <br><br>
+                                </span>
+                            </div>
+                        <% } %>
                         <div class="form-group mb-3">
                             <div class="input-group input-group-alternative">
                                 <input class="form-control" placeholder="Email" type="text" name="uname" id="username" required>

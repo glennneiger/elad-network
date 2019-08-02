@@ -1,0 +1,44 @@
+<% include partials/header.ejs%>
+
+      <div class="content">
+        <div class="header bg-white pb-8 pt-5 pt-md-8">
+          <div class="container-fluid" style="width: 60rem;">
+              <!-- Table-->
+              <div class="row">
+                <div class="col">
+                  <div class="card shadow">
+                    <div class="card-header border-0">
+                      <h1 class="mb-0">Users</h1>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table align-items-center table-flush" id="investmentsTable">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">E-mail</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(let i = 0; i < users.length; i++) { %>
+                            <tr>
+                              <th scope="col"><%= users[i].fullname %></th>
+                              <th scope="col"><%= users[i].username %></th>
+                            </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- Container -> end-->
+          </div>
+        </div>
+        <!-- Page content-->
+        <br>
+      </div>
+    
+    <!-- End of div main-content  -->
+    </div>
+
+<% include partials/footer.ejs %>

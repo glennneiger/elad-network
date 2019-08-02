@@ -20,7 +20,20 @@
                         <h1>Sign up</h1>
                     </div>
                     <form action="/signup" method="POST">
-                        <div class="form-group mb-3">
+                        <% if(typeof msg != 'undefined') { %>
+                            <div class="text-left">
+                                <span id="notAMatch" style="color:red; font-size:14px">
+                                    <%= msg %>
+                                    <br><br>
+                                </span>
+                            </div>
+                        <% } %>
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <input class="form-control" placeholder="Full name" type="text" name="fname" id="fullname" required autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="input-group input-group-alternative">
                                 <input class="form-control" placeholder="Email" type="text" name="uname" id="username" required>
                             </div>
@@ -30,8 +43,13 @@
                                 <input class="form-control" placeholder="Password" type="password" name="passwd" id="password" required>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <input class="form-control" placeholder="Confirm password" type="password" name="confirmpasswd" id="confirmpassword" required>
+                            </div>
+                        </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary my-4">Create account</button>
+                            <button type="submit" id="submitBtn" class="btn btn-primary my-4">Create account</button>
                         </div>
                     </form>
                 </div>
@@ -52,5 +70,6 @@
     
     <!-- Argon JS-->
     <script src="../assets/js/argon.js?v=1.0.0"></script>
+    <script src="../javascripts/signup.js"></script>
   </body>
 </html>
