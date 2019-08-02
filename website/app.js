@@ -21,8 +21,8 @@ const Property = require('./models/property')
 const User = require('./models/user')
 
 // database name: elad-network
-// mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
-mongoose.connect('mongodb://localhost:27017/elad-network', {
+mongoose.connect('mongodb://admin:admin123@ds237267.mlab.com:37267/elad-network', {
+// mongoose.connect('mongodb://localhost:27017/elad-network', {
   useNewUrlParser: true
 }, function(error) {
   if(error) {
