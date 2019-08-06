@@ -10,8 +10,6 @@ var passport = require('passport') // ok
 require('./passport')(passport)
 var expressValidator = require('express-validator')
 var LocalStrategy = require('passport-local').Strategy
-var flash = require('connect-flash')
-// var bcrypt = require('bcryptjs')
 var bcrypt = require('bcrypt-nodejs')
 const mongoose = require('mongoose') // ok
 const fileUpload = require('express-fileupload')
