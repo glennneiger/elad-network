@@ -431,39 +431,7 @@ var propertyTokenABI = web3.eth.contract([
 // var property = propertyTokenABI.at(propertyTokenAddress)
 var propertyTokenAddress
 
-var property
-
-// get token address (asyncronous call)
-function getTokenAdress() {
-	var propertyName = document.getElementById('nome').innerHTML
-
-	// first we get number of tokens created
-    factory.totalTokens(function(error, number) {
-
-        // now we get tokens addresses
-        for(var i = 0; i < number; i++) {
-            factory.tokens(i, function(error, address) {
-
-				// instance of target token
-                var targetTokenAddress = address
-				var targetToken = propertyTokenABI.at(targetTokenAddress)
-
-				targetToken.name(function(error, name) {
-					if(propertyName == name) {
-						setTimeout(function() {
-							propertyTokenAddress = address
-							property = propertyTokenABI.at(propertyTokenAddress)
-						}, Math.random() * 2000);
-					}
-				})
-            })
-        }
-    })
-}
-
-// getTokenAdress()
-
-function loadPropertyData() {
+function loadPropertyData(address) {
 	var propertyName = document.getElementById('nome').innerHTML
 
 	// first we get number of tokens created
@@ -506,7 +474,7 @@ function loadPropertyData() {
 	})
 	
     // get account balance in Ether
-    web3.eth.getBalance(accountAddress, function(error, res) {
+    web3.eth.getBalance(address, function(error, res) {
         if(error) {
             console.log(error)
         } else {
@@ -516,7 +484,14 @@ function loadPropertyData() {
 	})
 }
 
-loadPropertyData()
+loadPropertyData(accountAddress)
+
+/**
+ * Detects if account was changed on MetaMask and updates property's info
+ */
+window.ethereum.on('accountsChanged', function(accounts) {
+    loadPropertyData(accounts[0])
+})
 
 function buyTokens() {
 	var propertyName = document.getElementById('nome').innerHTML
