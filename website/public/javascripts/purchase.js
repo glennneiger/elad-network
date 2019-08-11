@@ -1,4 +1,5 @@
 var accountAddress = web3.toChecksumAddress(web3.eth.accounts[0])
+var accountBalance
 
 // Factory Contract
 var factoryABI = web3.eth.contract([
@@ -428,7 +429,6 @@ var propertyTokenABI = web3.eth.contract([
 	}
 ])
 
-// var property = propertyTokenABI.at(propertyTokenAddress)
 var propertyTokenAddress
 
 function loadPropertyData(address) {
@@ -439,11 +439,10 @@ function loadPropertyData(address) {
 
         // now we get tokens addresses
         for(var i = 0; i < number; i++) {
-            factory.tokens(i, function(error, address) {
+            factory.tokens(i, function(error, tokenAddress) {
 
 				// instance of target token
-                var targetTokenAddress = address
-				var targetToken = propertyTokenABI.at(targetTokenAddress)
+				var targetToken = propertyTokenABI.at(tokenAddress)
 
 				targetToken.name(function(error, name) {
 					if(propertyName == name) {
@@ -509,24 +508,27 @@ function buyTokens() {
 
 				targetToken.name(function(error, name) {
 					if(propertyName == name) {
-						var ethAmount = $('#ethAmount').val()
+						var ethAmount = Number( $('#ethAmount').val() )
 
-						// amount of Ether to send on the transaction
-						let txObject = {
-						    'value' : web3.toWei(ethAmount, 'ether')
+						if(ethAmount + 0.001 <= Number(accountBalance)) {
+							let txObject = {
+								'value' : web3.toWei(ethAmount, 'ether')
+							}
+	
+							// call function buyTokens() from contract
+							targetToken.buyTokens.sendTransaction(txObject, function(error, result){
+								if(error) {
+									console.log(error)
+								} else {
+									alert('Your token purchase transaction has been broadcasted.\ntx hash: ' + result)
+								}
+							})
+						} else {
+							alert('Insufficient funds')
 						}
 
-						// call function buyTokens() from contract
-						targetToken.buyTokens.sendTransaction(txObject, function(error, result){
-						    if(error) {
-						        console.log(error)
-						    } else {
-						        alert('Your token purchase transaction has been broadcasted.\ntx hash: ' + result)
-						    }
-						})
 					}
 				})
-				
             })
         }
     })

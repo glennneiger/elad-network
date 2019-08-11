@@ -428,8 +428,19 @@ var propertyTokenABI = web3.eth.contract([
 	}
 ])
 
-// addresses of the tokens
-var tokens = []
+/**
+ * Detects if account was changed on MetaMask and updates users's portfolio
+ */
+window.ethereum.on('accountsChanged', function(accounts) {
+	account = web3.toChecksumAddress(accounts[0])
+
+	var node = document.getElementById("tableBody");
+	while(node.hasChildNodes()) {
+		node.removeChild(node.lastChild);
+	}
+	
+	loadPropertyTokens()
+})
 
 // get tokens addresses
 function loadPropertyTokens() {
@@ -448,9 +459,9 @@ function loadPropertyTokens() {
 					if(balance > 0) {
 						// finally we get data from each token
 						property.propertyDetails(function(error, details) {
-		
 							// populate table with token details
 							var table = document.getElementById("investmentsTable")
+
 							var row = table.insertRow(1)
 							var cell0 = row.insertCell(0)
 							var cell1 = row.insertCell(1)

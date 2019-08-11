@@ -468,7 +468,7 @@ function loadPropertyTokens() {
 					cell2.innerHTML = tokensBought
 					cell3.innerHTML = tokensLeft
 					// cell4.innerHTML = "<a href=\"https://kovan.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
-					cell4.innerHTML = "<a href=\"https://ropsten.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>"
+					cell4.innerHTML = "<a href=\"https://ropsten.etherscan.io/token/" + address + "\" target=\"_blank\">" + address + "</a>&nbsp;&nbsp;<i class=\"fas fa-external-link-alt\"></i>"
                 })
             })
         }

@@ -96,9 +96,12 @@ app.use(function (req, res, next) {
 
 // routing changes --- beginning 
 app.get('/', function(req, res, next) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em index!')
-    console.log(req.session.username)
+
+  // Checks if user is logged in
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+  } else {
+    console.log('User: ', req.session.username)
   }
 
   Property.countDocuments({}, (error, num) => {
@@ -121,7 +124,6 @@ app.get('/', function(req, res, next) {
           })
       }
   })
-  // res.render('index', {title:'Dashboard'})
 })
 
 app.get('/login', function(req, res, next) {
@@ -129,8 +131,8 @@ app.get('/login', function(req, res, next) {
 })
 
 app.get('/logout', function(req, res, next) {
-  req.session.username = null
-  res.render('/', {title:'Logout'});
+  req.session.username = undefined
+  res.redirect('/')
 })
 
 app.get('/signup', function(req, res, next) {
@@ -166,8 +168,7 @@ app.post('/login', function(req, res) {
     } else {
       if(doc) {
         // user found
-        console.log('User found:')
-        console.log(doc.username)
+        console.log('User found: ', doc.username)
         if(comparePassword(password, doc.password)) {
           console.log('Password is valid! Login successful!')
           req.session.username = doc.username
@@ -238,135 +239,150 @@ app.post('/signup', function(req, res) {
       }
     })
   }
-  
 })
 
 app.get('/dashboard', function(req, res, next) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em dashboard!')
-    console.log(req.session.username)
+  // Checks if user is logged in. If not, redirects to login page.
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User:', req.session.username)
+    res.render('dashboard', {
+      title: 'Dashboard',
+      user: req.session.username
+    })
   }
-
-  res.render('dashboard', {title:'Dashboard', user: req.session.username});
 })
 
 app.get('/properties', function(req, res) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em properties!')
-    console.log(req.session.username)
-  }
-
-  Property.countDocuments({}, (error, num) => {
-    if(error) {
-      console.log('There was a problem retrieving the properties from the database')
-      console.log(error)
-    } else {
-      console.log('Number of properties: ' + num)
-    }
-  })
-
-  Property.find({}, function(error, properties) {
+  // Checks if user is logged in. If not, redirects to login page.
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User:', req.session.username)
+    Property.countDocuments({}, (error, num) => {
       if(error) {
-          console.log('There was a problem retrieving the properties from the database')
-          console.log(error)
+        console.log('There was a problem retrieving the properties from the database')
+        console.log(error)
       } else {
-          res.render('properties', {
-              propertiesList: properties,
-              title: 'Properties',
-              user: req.session.username
-          })
+        console.log('Number of properties: ' + num)
       }
-  })
+    })
+  
+    Property.find({}, function(error, properties) {
+        if(error) {
+            console.log('There was a problem retrieving the properties from the database')
+            console.log(error)
+        } else {
+            res.render('properties', {
+                propertiesList: properties,
+                title: 'Properties',
+                user: req.session.username
+            })
+        }
+    })
+  }
 })
 
 app.get('/properties/:id', function(req, res) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em properties/' + req.params.id + '!')
-    console.log(req.session.username)
+  // Checks if user is logged in. If not, redirects to login page.
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User:', req.session.username)
+    var id = req.params.id
+  
+    Property.findById(id, function(error, foundProperty) {
+      if(error) {
+        console.log("Couldn't find property with that id:")
+      } else {
+        // console.log('Property found:')
+        // console.log(foundProperty)
+  
+        res.render('property', {
+          propertyName: foundProperty.propertyName,
+          propertyPrice: foundProperty.propertyPrice,
+          propertyAddress: foundProperty.propertyAddress,
+          tokenSymbol: foundProperty.tokenSymbol,
+          totalSupply: foundProperty.totalSupply,
+          ethPrice: foundProperty.ethPrice,
+          propertyDescription: foundProperty.propertyDescription,
+          propertyImage: foundProperty.propertyImage,
+          title: 'Property',
+          user: req.session.username
+        })
+      }
+    })
   }
-
-  var id = req.params.id
-
-  Property.findById(id, function(error, foundProperty) {
-    if(error) {
-      console.log("Couldn't find property with that id:")
-    } else {
-      // console.log('Property found:')
-      // console.log(foundProperty)
-
-      res.render('property', {
-        propertyName: foundProperty.propertyName,
-        propertyPrice: foundProperty.propertyPrice,
-        propertyAddress: foundProperty.propertyAddress,
-        tokenSymbol: foundProperty.tokenSymbol,
-        totalSupply: foundProperty.totalSupply,
-        ethPrice: foundProperty.ethPrice,
-        propertyDescription: foundProperty.propertyDescription,
-        propertyImage: foundProperty.propertyImage,
-        title: 'Property',
-        user: req.session.username
-      })
-    }
-  })
 })
 
 app.get('/create', function(req, res, next) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em create!')
-    console.log(req.session.username)
+  // Checks if user is logged in
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User: ', req.session.username)
+
+    // Checks if user has access to create property page
+    if(req.session.username != 'admin') {
+      res.render('dashboard', { title:'Dashboard', user: req.session.username });
+    } else {
+      res.render('create', { title:'Create Property', user: req.session.username });
+    }
   }
 
-  if(req.session.username != 'admin') {
-    res.render('dashboard', { title:'Dashboard', user: req.session.username });
-  } else {
-    res.render('create', { title:'Create Property', user: req.session.username });
-  }
 })
 
 app.get('/users', function(req, res) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em users!')
-    console.log(req.session.username)
-  }
+  // Checks if user is logged in
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User: ', req.session.username)
 
-  User.countDocuments({}, (error, num) => {
-    if(error) {
-      console.log('There was a problem retrieving the properties from the database')
-      console.log(error)
+    // Checks if user has access to users page
+    if(req.session.username != 'admin') {
+      res.render('dashboard', { title:'Dashboard', user: req.session.username });
     } else {
-      console.log('Number of users: ' + num)
-    }
-  })
-
-  User.find({}, function(error, users) {
-      if(error) {
+      User.countDocuments({}, (error, num) => {
+        if (error) {
           console.log('There was a problem retrieving the properties from the database')
           console.log(error)
-      } else {
-          res.render('users', {
-              users: users,
-              title: 'Users',
-              user: req.session.username
-          })
-      }
-  })
-})
+        } else {
+          console.log('Number of users: ' + num)
+        }
+      })
 
-app.get('/manage', function(req, res, next) {
-  res.render('manage', {title:'Manage Properties'});
+      User.find({}, function (error, users) {
+        if (error) {
+          console.log('There was a problem retrieving the properties from the database')
+          console.log(error)
+        } else {
+          res.render('users', {
+            users: users,
+            title: 'Users',
+            user: req.session.username
+          })
+        }
+      })
+    }
+  }
 })
 
 app.get('/tokens', function(req, res, next) {
-  if(req.session.username) {
-    console.log('Achamos a sessão em tokens!')
-    console.log(req.session.username)
+  // Checks if user is logged in
+  if(typeof req.session.username === 'undefined') {
+    console.log('NOT LOGGED IN YET')
+    res.render('login', {title: 'Login'})
+  } else {
+    console.log('User: ', req.session.username)
+    res.render('tokens', {title:'Property Tokens', user: req.session.username})
   }
-
-  res.render('tokens', {title:'Property Tokens', user: req.session.username})
-})
-
-app.get('/blank', function(req, res, next) {
-  res.render('blank', {title:'Blank page'})
 })
 
 app.post('/create-property', (req, res) => {
